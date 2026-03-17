@@ -1,0 +1,113 @@
+"use client";
+
+import Image from "next/image";
+import { useEffect, useState } from "react";
+
+export default function LoadingSpinner() {
+  const [rotation, setRotation] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setRotation((prev) => (prev + 1) % 360);
+    }, 20);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="flex justify-center items-center min-h-[200px]">
+      <div className="relative w-40 h-40">
+        {/* Layer 5 - Outermost ring with gradient */}
+        <div className="absolute inset-0 rounded-full bg-gradient-to-r from-orange-200 via-orange-400 to-orange-600 animate-pulse"></div>
+
+        {/* Layer 4 - Spinning ring with dashes */}
+        <div
+          className="absolute inset-1 rounded-full border-4 border-dashed border-orange-500"
+          style={{
+            animation: "spin 8s linear infinite",
+            borderColor: "#f97316 transparent #f97316 transparent",
+          }}
+        ></div>
+
+        {/* Layer 3 - Spinning ring with dots */}
+        <div
+          className="absolute inset-2 rounded-full"
+          style={{
+            background:
+              "conic-gradient(from 0deg, #fed7aa, #fb923c, #ea580c, #fed7aa)",
+            animation: "spin 6s linear infinite reverse",
+          }}
+        ></div>
+
+        {/* Layer 2 - Inner spinning ring */}
+        <div
+          className="absolute inset-3 rounded-full border-4 border-t-orange-600 border-r-orange-400 border-b-orange-300 border-l-orange-500"
+          style={{ animation: "spin 4s linear infinite" }}
+        ></div>
+
+        {/* Layer 1 - Inner glow ring */}
+        <div className="absolute inset-4 rounded-full bg-gradient-to-br from-orange-100 to-orange-300 animate-pulse"></div>
+
+        {/* Center Image */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="relative w-20 h-20 bg-white rounded-full shadow-xl flex items-center justify-center animate-bounce-slow">
+            {/* Real Estate Image */}
+            <Image
+              src="https://img.icons8.com/fluency/96/null/real-estate.png"
+              alt="Real Estate"
+              width={48}
+              height={48}
+              className="object-contain"
+              priority
+            />
+
+            {/* Glowing effect around image */}
+            <div className="absolute inset-0 rounded-full bg-orange-400 opacity-20 animate-ping"></div>
+          </div>
+        </div>
+
+        {/* Orbiting particles around the image */}
+        {[0, 60, 120, 180, 240, 300].map((angle, index) => (
+          <div
+            key={index}
+            className="absolute w-2 h-2 bg-[var(--primary-color)] rounded-full"
+            style={{
+              left: "50%",
+              top: "50%",
+              transform: `rotate(${angle + rotation}deg) translateX(60px)`,
+              opacity: 0.6,
+              animation: "pulse 1.5s ease-in-out infinite",
+              animationDelay: `${index * 0.2}s`,
+            }}
+          ></div>
+        ))}
+      </div>
+
+      <style jsx>{`
+        @keyframes spin {
+          from {
+            transform: rotate(0deg);
+          }
+          to {
+            transform: rotate(360deg);
+          }
+        }
+
+        @keyframes bounce-slow {
+          0%,
+          100% {
+            transform: translateY(-5%);
+            animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+          }
+          50% {
+            transform: translateY(0);
+            animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+          }
+        }
+
+        .animate-bounce-slow {
+          animation: bounce-slow 2s infinite;
+        }
+      `}</style>
+    </div>
+  );
+}
