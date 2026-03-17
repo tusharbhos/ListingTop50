@@ -1,8 +1,5 @@
 @tailwind utilities;
 
-/* Add reference directive for Tailwind utilities */
-@reference "./styles/globals.css";
-
 :root {
   --primary: #f97316;
   --primary-light: #fb923c;
