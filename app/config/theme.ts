@@ -53,7 +53,7 @@ export const themes: Record<string, Theme> = {
     },
   },
  "listing-top50.vercel.app": {
-    name: "Domain 1",
+    name: "listing-top50",
     primary: "#2563eb", // blue-600
     secondary: "#1d4ed8", // blue-700
     text: "#000000",

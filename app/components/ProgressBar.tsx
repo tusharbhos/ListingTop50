@@ -55,7 +55,7 @@ export default function ProgressBar({ currentStep, totalSteps }: ProgressBarProp
                     }
                     ${isCurrent ? "scale-110 ring-4" : ""}
                   `}
-                  style={isCurrent ? { ringColor: "var(--primary)" } : {}}
+                  
                 >
                   {isActive && step.number < currentStep ? (
                     <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
