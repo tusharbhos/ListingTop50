@@ -60,7 +60,7 @@ export default function Step2Intent({
   return (
     <div className="max-w-6xl mx-auto px-4">
       {/* TITLE */}
-      <h2 className="text-center text-2xl md:text-4xl font-semibold mb-8" style={{ color: 'var(--text)' }}>
+      <h2 className="text-center text-2xl  font-semibold mb-8" style={{ color: 'var(--text)' }}>
         What best describes what you're looking for
         <span style={{ color: 'var(--primary)' }}>?</span>
       </h2>
