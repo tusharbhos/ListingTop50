@@ -7,7 +7,7 @@ export const themes: Record<string, any> = {
     bg: "#ffffff",
     border: "#e5e7eb",
   },
-  "https://listing-top50.vercel.app/": {
+  "listing-top50.vercel.app": {
     name: "Master Agentic AI",
     primary: "#16a34a",
     secondary: "#22c55e",
