@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import debounce from "lodash/debounce";
-import "../config/theme";
+import { useThemeStyles } from "../hooks/useThemeStyles";
 
 interface Step1SearchProps {
   formData: any;
@@ -15,6 +15,9 @@ export default function Step1Search({
   updateFormData,
   nextStep,
 }: Step1SearchProps) {
+  const { getHeadingClass, getButtonClass, getTextClass, getFocusClass, getBorderClass } =
+    useThemeStyles();
+
   const [searchQuery, setSearchQuery] = useState(formData.searchLocation || "");
   const [suggestions, setSuggestions] = useState<any[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -26,7 +29,7 @@ export default function Step1Search({
 
     try {
       const res = await fetch(
-        `https://nominatim.openstreetmap.org/search?q=${query}&countrycodes=in&format=json&limit=8`,
+        `https://nominatim.openstreetmap.org/search?q=${query}&countrycodes=in&format=json&limit=8`
       );
 
       const data = await res.json();
@@ -65,16 +68,14 @@ export default function Step1Search({
     <div className="max-w-3xl mx-auto px-4">
       {/* HEADER */}
       <div className="text-center mb-10">
-        <h1 className="text-3xl md:text-4xl font-semibold text-black">
-          Fewer choices <span className="text-[var(--primary)]">|</span> Better
-          decisions
+        <h1 className={`${getHeadingClass("h1")} text-black`}>
+          Fewer choices <span className={getTextClass("primary")}>|</span> Better decisions
         </h1>
 
         <p className="mt-4 text-black text-sm md:text-lg">
-          <span className="font-semibold text-[var(--primary)]">Top50</span>
-          Properties curates only the most relevant homes and investments —
-          based on <span className="font-semibold underline">intent</span>, not
-          listings.
+          <span className={`font-semibold ${getTextClass("primary")}`}>Top50</span>
+          Properties curates only the most relevant homes and investments — based on{" "}
+          <span className="font-semibold underline">intent</span>, not listings.
         </p>
       </div>
 
@@ -89,11 +90,13 @@ export default function Step1Search({
               setError("");
             }}
             placeholder="Where are you search.."
-            className="w-full rounded-full border-2 border-[var(--border)] px-6 py-4 text-sm md:text-lg focus:outline-none focus:ring-2 focus:ring-orange-400 text-black"
+            className={`w-full rounded-full border-2 ${getBorderClass(
+              "primary"
+            )} px-6 py-4 text-sm md:text-lg focus:outline-none ${getFocusClass()} text-black`}
           />
 
           {/* SEARCH ICON */}
-          <div className="absolute right-4 top-4 text-[var(--text)]">🔍</div>
+          <div className={`absolute right-4 top-4 ${getTextClass("primary")}`}>🔍</div>
 
           {/* SUGGESTIONS */}
           {showSuggestions && suggestions.length > 0 && (
@@ -116,7 +119,9 @@ export default function Step1Search({
         {/* BUTTON */}
         <button
           type="submit"
-          className="mt-8 w-full md:w-auto block mx-auto bg-[var(--primary)] text-white font-semibold px-8 py-4 rounded-lg transition"
+          className={`mt-8 w-full md:w-auto block mx-auto ${getButtonClass(
+            "primary"
+          )} font-semibold px-8 py-4 rounded-lg`}
         >
           Choose Your Intent Next
         </button>
@@ -126,7 +131,7 @@ export default function Step1Search({
       <div className="text-center mt-10 text-black text-sm md:text-base">
         🔒 <span className="font-semibold">Privacy First</span>
         <br />
-        We don’t ask who you are — until you find what fits.
+        We don't ask who you are — until you find what fits.
       </div>
     </div>
   );

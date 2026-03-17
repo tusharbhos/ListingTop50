@@ -2,8 +2,10 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { useThemeStyles } from "../hooks/useThemeStyles";
 
 export default function LoadingSpinner() {
+  const { theme, getTextClass, getBgClass } = useThemeStyles();
   const [rotation, setRotation] = useState(0);
 
   useEffect(() => {
@@ -17,14 +19,19 @@ export default function LoadingSpinner() {
     <div className="flex justify-center items-center min-h-[200px]">
       <div className="relative w-40 h-40">
         {/* Layer 5 - Outermost ring with gradient */}
-        <div className="absolute inset-0 rounded-full bg-gradient-to-r from-orange-200 via-orange-400 to-orange-600 animate-pulse"></div>
+        <div
+          className="absolute inset-0 rounded-full animate-pulse"
+          style={{
+            background: `linear-gradient(to right, ${theme.primary}33, ${theme.primary}, ${theme.secondary})`,
+          }}
+        ></div>
 
         {/* Layer 4 - Spinning ring with dashes */}
         <div
-          className="absolute inset-1 rounded-full border-4 border-dashed border-orange-500"
+          className="absolute inset-1 rounded-full border-4 border-dashed"
           style={{
             animation: "spin 8s linear infinite",
-            borderColor: "#f97316 transparent #f97316 transparent",
+            borderColor: `${theme.primary} transparent ${theme.primary} transparent`,
           }}
         ></div>
 
@@ -32,25 +39,31 @@ export default function LoadingSpinner() {
         <div
           className="absolute inset-2 rounded-full"
           style={{
-            background:
-              "conic-gradient(from 0deg, #fed7aa, #fb923c, #ea580c, #fed7aa)",
+            background: `conic-gradient(from 0deg, ${theme.primary}33, ${theme.primary}, ${theme.secondary}, ${theme.primary}33)`,
             animation: "spin 6s linear infinite reverse",
           }}
         ></div>
 
         {/* Layer 2 - Inner spinning ring */}
         <div
-          className="absolute inset-3 rounded-full border-4 border-t-orange-600 border-r-orange-400 border-b-orange-300 border-l-orange-500"
-          style={{ animation: "spin 4s linear infinite" }}
+          className="absolute inset-3 rounded-full border-4"
+          style={{
+            borderColor: `${theme.primary} ${theme.primary}66 ${theme.primary}33 ${theme.secondary}`,
+            animation: "spin 4s linear infinite",
+          }}
         ></div>
 
         {/* Layer 1 - Inner glow ring */}
-        <div className="absolute inset-4 rounded-full bg-gradient-to-br from-orange-100 to-orange-300 animate-pulse"></div>
+        <div
+          className="absolute inset-4 rounded-full animate-pulse"
+          style={{
+            background: `linear-gradient(to bottom right, ${theme.primary}33, ${theme.primary}66)`,
+          }}
+        ></div>
 
         {/* Center Image */}
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="relative w-20 h-20 bg-white rounded-full shadow-xl flex items-center justify-center animate-bounce-slow">
-            {/* Real Estate Image */}
             <Image
               src="https://img.icons8.com/fluency/96/null/real-estate.png"
               alt="Real Estate"
@@ -61,7 +74,10 @@ export default function LoadingSpinner() {
             />
 
             {/* Glowing effect around image */}
-            <div className="absolute inset-0 rounded-full bg-orange-400 opacity-20 animate-ping"></div>
+            <div
+              className="absolute inset-0 rounded-full animate-ping"
+              style={{ backgroundColor: theme.primary, opacity: 0.2 }}
+            ></div>
           </div>
         </div>
 
@@ -69,11 +85,12 @@ export default function LoadingSpinner() {
         {[0, 60, 120, 180, 240, 300].map((angle, index) => (
           <div
             key={index}
-            className="absolute w-2 h-2 bg-[var(--primary-color)] rounded-full"
+            className="absolute w-2 h-2 rounded-full"
             style={{
               left: "50%",
               top: "50%",
               transform: `rotate(${angle + rotation}deg) translateX(60px)`,
+              backgroundColor: theme.primary,
               opacity: 0.6,
               animation: "pulse 1.5s ease-in-out infinite",
               animationDelay: `${index * 0.2}s`,

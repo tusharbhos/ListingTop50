@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useThemeStyles } from "../hooks/useThemeStyles";
 
 interface IntentPopupProps {
   intentId: string;
@@ -81,21 +82,16 @@ export default function IntentPopup({
   selectedOptions,
   onClose,
 }: IntentPopupProps) {
+  const { getButtonClass, getTextClass, getBorderClass, getBgClass } = useThemeStyles();
   const [selected, setSelected] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
-    // ✅ Save scroll position
     const scrollY = window.scrollY;
-
-    // ✅ Lock body — NO position:fixed (it shrinks mobile viewport and hides footer!)
     document.body.style.overflow = "hidden";
     document.body.style.width = "100%";
-
-    // ✅ Jump to top so overlay is fully visible
     window.scrollTo(0, 0);
 
     return () => {
-      // ✅ Restore on close
       document.body.style.overflow = "";
       document.body.style.width = "";
       window.scrollTo(0, scrollY);
@@ -128,19 +124,13 @@ export default function IntentPopup({
   };
 
   return (
-    // ✅ fixed inset-0, full screen overlay
-    <div
-      className="fixed inset-0  bg-opacity-50 z-50 flex flex-col"
-      style={{ height: "80dvh" }}
-      // ✅ 100dvh = dynamic viewport height — accounts for mobile browser address bar
-    >
-      {/* ✅ Popup card: flex-col so header/footer are fixed, middle scrolls */}
+    <div className="fixed inset-0 bg-opacity-50 z-50 flex flex-col" style={{ height: "80dvh" }}>
       <div
         className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl mx-auto flex flex-col overflow-hidden"
         style={{ maxHeight: "95%" }}
       >
-        {/* ── HEADER (never scrolls) ── */}
-        <div className="p-5 border-b border-gray-200 ">
+        {/* HEADER */}
+        <div className="p-5 border-b border-gray-200">
           <div className="flex justify-between items-start gap-2">
             <div>
               <h2 className="text-md font-semibold text-gray-800 flex items-center gap-2 flex-wrap">
@@ -149,20 +139,13 @@ export default function IntentPopup({
                   {intentName}
                 </span>
               </h2>
-              <p className="text-gray-500 text-sm mt-1">
-                Select your preferences
-              </p>
+              <p className="text-gray-500 text-sm mt-1">Select your preferences</p>
             </div>
             <button
               onClick={handleClose}
-              className="text-gray-400 hover:text-gray-600 transition "
+              className="text-gray-400 hover:text-gray-600 transition"
             >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -174,8 +157,7 @@ export default function IntentPopup({
           </div>
         </div>
 
-        {/* ── OPTIONS LIST (scrollable middle section) ── */}
-        {/* ✅ flex-1 + overflow-y-auto = takes remaining space and scrolls inside */}
+        {/* OPTIONS LIST */}
         <div className="flex-1 overflow-y-auto p-5 min-h-0">
           <div className="space-y-3">
             {options.map((option) => (
@@ -183,22 +165,21 @@ export default function IntentPopup({
                 key={option}
                 className={`flex items-center space-x-3 p-3 border rounded-lg cursor-pointer transition ${
                   selected[option]
-                    ? "border-orange-500 bg-orange-50"
-                    : "border-gray-200 hover:border-orange-300 hover:bg-gray-50"
+                    ? `${getBorderClass("primary")} bg-[--bg-light]`
+                    : "border-gray-200 hover:border-[--primary] hover:bg-gray-50"
                 }`}
               >
                 <input
                   type="checkbox"
                   checked={selected[option] || false}
                   onChange={() => handleCheckboxChange(option)}
-                  className="w-5 h-5 text-[var(--primary-color)] rounded focus:ring-orange-500 "
+                  className={`w-5 h-5 rounded focus:ring-[--focus]`}
+                  style={{ color: "var(--primary)" }}
                 />
-                <span className="text-black flex-1 text-sm leading-snug">
-                  {option}
-                </span>
+                <span className="text-black flex-1 text-sm leading-snug">{option}</span>
                 {selected[option] && (
                   <svg
-                    className="w-5 h-5 text-[var(--primary-color)] "
+                    className={`w-5 h-5 ${getTextClass("primary")}`}
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -214,19 +195,20 @@ export default function IntentPopup({
           </div>
         </div>
 
-        {/* ── FOOTER (always visible at bottom, never scrolls) ── */}
-        {/* ✅  = footer will NEVER be pushed off screen */}
-        <div className="p-5 border-t border-gray-200 bg-gray-50 ">
+        {/* FOOTER */}
+        <div className="p-5 border-t border-gray-200 bg-gray-50">
           <div className="flex items-center justify-between">
             <button
               onClick={handleClose}
-              className="px-5 py-2.5 border border-black rounded-lg hover:bg-gray-100 transition text-black cursor-pointer text-sm font-medium"
+              className={`px-5 py-2.5 border border-black rounded-lg hover:bg-gray-100 transition text-black cursor-pointer text-sm font-medium`}
             >
               Cancel
             </button>
             <button
               onClick={handleSave}
-              className="px-5 py-2.5 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition cursor-pointer text-sm font-medium"
+              className={`px-5 py-2.5 ${getBgClass(
+                "primary"
+              )} text-white rounded-lg hover:bg-[--hover-primary] transition cursor-pointer text-sm font-medium`}
             >
               Save Selection
             </button>

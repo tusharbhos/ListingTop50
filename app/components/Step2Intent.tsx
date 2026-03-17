@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import IntentPopup from "./IntentPopup";
+import { useThemeStyles } from "../hooks/useThemeStyles";
 
 interface Step2IntentProps {
   formData: any;
@@ -31,6 +32,7 @@ export default function Step2Intent({
   nextStep,
   prevStep,
 }: Step2IntentProps) {
+  const { getHeadingClass, getButtonClass, getTextClass, getBgClass } = useThemeStyles();
   const [selectedPopup, setSelectedPopup] = useState<string | null>(null);
 
   const handleIntentClick = (intentId: string) => {
@@ -44,7 +46,7 @@ export default function Step2Intent({
     };
 
     const selectedIntents = Object.keys(updatedSubOptions).filter(
-      (intent) => updatedSubOptions[intent]?.length > 0,
+      (intent) => updatedSubOptions[intent]?.length > 0
     );
 
     updateFormData(2, {
@@ -64,30 +66,27 @@ export default function Step2Intent({
   return (
     <div className="max-w-6xl mx-auto px-4">
       {/* TITLE */}
-      <h2 className="text-center text-2xl md:text-4xl font-semibold text-gray-800 mb-8">
+      <h2 className={`text-center ${getHeadingClass("h2")} text-gray-800 mb-8`}>
         What best describes what you're looking for
-        <span className="text-orange-500">?</span>
+        <span className={getTextClass("primary")}>?</span>
       </h2>
 
       {/* GRID */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
         {intents.map((intent) => {
-          const selectedCount =
-            formData.selectedSubOptions?.[intent.id]?.length || 0;
+          const selectedCount = formData.selectedSubOptions?.[intent.id]?.length || 0;
 
           return (
-            <div
-              key={intent.id}
-              className=" cursor-pointer"
-              onClick={() => handleIntentClick(intent.id)}
-            >
+            <div key={intent.id} className="cursor-pointer" onClick={() => handleIntentClick(intent.id)}>
               <div className="flex">
                 <div className="text-5xl ml-auto">{intent.icon}</div>
               </div>
 
               {/* BUTTON */}
               <div
-                className={`bg-[var(--primary-color)] hover:bg-orange-600 text-white px-4 py-3 rounded-lg font-semibold transition relative`}
+                className={`${getBgClass(
+                  "primary"
+                )} hover:bg-[--hover-primary] text-white px-4 py-3 rounded-lg font-semibold transition relative`}
               >
                 {intent.name}
 
@@ -106,7 +105,7 @@ export default function Step2Intent({
       <div className="flex justify-between mt-8 gap-2">
         <button
           onClick={prevStep}
-          className="border px-6 py-2 rounded-lg hover:bg-gray-100 text-black cursor-pointer"
+          className={`border ${getButtonClass("secondary")} px-6 py-2 rounded-lg text-black cursor-pointer`}
         >
           Back
         </button>
@@ -114,7 +113,9 @@ export default function Step2Intent({
         <button
           onClick={handleContinue}
           disabled={!formData.selectedIntents?.length}
-          className="bg-[var(--primary-color)] hover:bg-orange-600 text-white px-6 py-2 rounded-lg disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+          className={`${getBgClass(
+            "primary"
+          )} hover:bg-[--hover-primary] text-white px-6 py-2 rounded-lg disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer`}
         >
           Continue
         </button>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useThemeStyles } from "../hooks/useThemeStyles";
 
 interface Step4FiltersProps {
   formData: any;
@@ -9,12 +10,7 @@ interface Step4FiltersProps {
   prevStep: () => void;
 }
 
-const budgetRanges = [
-  "1 - 2 Crore",
-  "2 - 3 Crore",
-  "3 - 5 Crore",
-  "Above 5+ Crore",
-];
+const budgetRanges = ["1 - 2 Crore", "2 - 3 Crore", "3 - 5 Crore", "Above 5+ Crore"];
 
 const possessionTimelines = [
   "Ready to Move",
@@ -38,13 +34,16 @@ export default function Step4Filters({
   nextStep,
   prevStep,
 }: Step4FiltersProps) {
+  const { getHeadingClass, getButtonClass, getTextClass, getBorderClass, getBgClass } =
+    useThemeStyles();
+
   const [filters, setFilters] = useState(
     formData.filters || {
       budgetRange: "",
       possessionTimeline: "",
       decisionTimeline: "",
       purpose: "",
-    },
+    }
   );
 
   const handleChange = (field: string, value: string) => {
@@ -60,17 +59,15 @@ export default function Step4Filters({
 
   return (
     <div>
-      <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+      <h2 className={`${getHeadingClass("h2")} text-gray-800 mb-6`}>
         What best describes what you're looking for
-        <span className="text-orange-500">?</span>
+        <span className={getTextClass("primary")}>?</span>
       </h2>
 
       <div className="space-y-6">
         {/* Budget Range */}
         <div>
-          <label className="block text-lg font-bold text-black mb-2">
-            Budget Range :-
-          </label>
+          <label className="block text-lg font-bold text-black mb-2">Budget Range :-</label>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
             {budgetRanges.map((range) => (
               <button
@@ -78,8 +75,8 @@ export default function Step4Filters({
                 onClick={() => handleChange("budgetRange", range)}
                 className={`p-2 text-sm cursor-pointer border text-black rounded-lg transition ${
                   filters.budgetRange === range
-                    ? "border-orange-600 bg-orange-50 text-orange-700"
-                    : "border-gray-200 bg-gray-50 hover:border-orange-300"
+                    ? `${getBorderClass("primary")} bg-[--bg-light] ${getTextClass("primary")}`
+                    : "border-gray-200 bg-gray-50 hover:border-[--primary]"
                 }`}
               >
                 {range}
@@ -90,9 +87,7 @@ export default function Step4Filters({
 
         {/* Possession Timeline */}
         <div>
-          <label className="block text-lg font-bold text-black mb-2">
-            Possession Timeline :-
-          </label>
+          <label className="block text-lg font-bold text-black mb-2">Possession Timeline :-</label>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
             {possessionTimelines.map((timeline) => (
               <button
@@ -100,8 +95,8 @@ export default function Step4Filters({
                 onClick={() => handleChange("possessionTimeline", timeline)}
                 className={`p-2 text-sm cursor-pointer border text-black rounded-lg transition ${
                   filters.possessionTimeline === timeline
-                    ? "border-orange-600 bg-orange-50 text-orange-700"
-                    : "border-gray-200 bg-gray-50 hover:border-orange-300"
+                    ? `${getBorderClass("primary")} bg-[--bg-light] ${getTextClass("primary")}`
+                    : "border-gray-200 bg-gray-50 hover:border-[--primary]"
                 }`}
               >
                 {timeline}
@@ -112,9 +107,7 @@ export default function Step4Filters({
 
         {/* Decision Timeline */}
         <div>
-          <label className="block text-lg font-bold text-black mb-2">
-            Decision Timeline :-
-          </label>
+          <label className="block text-lg font-bold text-black mb-2">Decision Timeline :-</label>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
             {decisionTimelines.map((timeline) => (
               <button
@@ -122,8 +115,8 @@ export default function Step4Filters({
                 onClick={() => handleChange("decisionTimeline", timeline)}
                 className={`p-2 text-sm cursor-pointer border text-black rounded-lg transition ${
                   filters.decisionTimeline === timeline
-                    ? "border-orange-600 bg-orange-50 text-orange-700"
-                    : "border-gray-200 bg-gray-50 hover:border-orange-300"
+                    ? `${getBorderClass("primary")} bg-[--bg-light] ${getTextClass("primary")}`
+                    : "border-gray-200 bg-gray-50 hover:border-[--primary]"
                 }`}
               >
                 {timeline}
@@ -134,9 +127,7 @@ export default function Step4Filters({
 
         {/* Purpose */}
         <div>
-          <label className="block text-lg font-bold text-black mb-2">
-            Purpose :-
-          </label>
+          <label className="block text-lg font-bold text-black mb-2">Purpose :-</label>
           <div className="flex gap-2">
             {purposes.map((purpose) => (
               <button
@@ -144,8 +135,8 @@ export default function Step4Filters({
                 onClick={() => handleChange("purpose", purpose)}
                 className={`flex-1 p-2 cursor-pointer border text-black rounded-lg transition ${
                   filters.purpose === purpose
-                    ? "border-orange-600 bg-orange-50 text-orange-700"
-                    : "border-gray-200 bg-gray-50 hover:border-orange-300"
+                    ? `${getBorderClass("primary")} bg-[--bg-light] ${getTextClass("primary")}`
+                    : "border-gray-200 bg-gray-50 hover:border-[--primary]"
                 }`}
               >
                 {purpose}
@@ -158,14 +149,16 @@ export default function Step4Filters({
       <div className="flex space-x-3 justify-between mt-8">
         <button
           onClick={prevStep}
-          className="px-6 py-2 border cursor-pointer text-black border-black rounded-lg hover:bg-gray-50 transition"
+          className={`px-6 py-2 border cursor-pointer text-black border-black rounded-lg hover:bg-gray-50 transition`}
         >
           Back
         </button>
         <button
           onClick={handleSubmit}
           disabled={!isComplete}
-          className="px-6 py-2 cursor-pointer bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+          className={`px-6 py-2 cursor-pointer ${getBgClass(
+            "primary"
+          )} text-white rounded-lg hover:bg-[--hover-primary] transition disabled:opacity-50 disabled:cursor-not-allowed`}
         >
           View Filtered Properties
         </button>

@@ -1,12 +1,15 @@
+"use client";
+
+import { useThemeStyles } from "../hooks/useThemeStyles";
+
 interface ProgressBarProps {
   currentStep: number;
   totalSteps: number;
 }
 
-export default function ProgressBar({
-  currentStep,
-  totalSteps,
-}: ProgressBarProps) {
+export default function ProgressBar({ currentStep, totalSteps }: ProgressBarProps) {
+  const { getHeadingClass, getTextClass, getBgClass, getGradientClass } = useThemeStyles();
+
   const steps = [
     { number: 1, label: "Location" },
     { number: 2, label: "Intent" },
@@ -23,7 +26,7 @@ export default function ProgressBar({
         {/* Background line */}
         <div className="absolute top-4 left-0 w-full h-0.5 bg-gray-200 -z-10" />
         <div
-          className="absolute top-4 left-0 h-0.5 bg-linear-to-r from-orange-400 to-orange-600 transition-all duration-1000 ease-out -z-10"
+          className={`absolute top-4 left-0 h-0.5 ${getGradientClass()} transition-all duration-1000 ease-out -z-10`}
           style={{ width: `${progressPercentage}%` }}
         />
 
@@ -32,11 +35,14 @@ export default function ProgressBar({
           const isCurrent = step.number === currentStep;
 
           return (
-            <div key={step.number} className="flex flex-col items-center ">
+            <div key={step.number} className="flex flex-col items-center">
               {/* Circle with glow for current */}
               <div className="relative">
                 {isCurrent && (
-                  <div className="absolute -inset-2 rounded-full animate-ping bg-orange-400 opacity-30" />
+                  <div
+                    className="absolute -inset-2 rounded-full animate-ping opacity-30"
+                    style={{ backgroundColor: "var(--primary)" }}
+                  />
                 )}
                 <div
                   className={`
@@ -44,18 +50,15 @@ export default function ProgressBar({
                     transition-all duration-500
                     ${
                       isActive
-                        ? "border-orange-600 bg-orange-600 text-white shadow-lg shadow-orange-200"
+                        ? `${getBgClass("primary")} text-white shadow-lg`
                         : "border-gray-300 bg-white text-black"
                     }
-                    ${isCurrent ? "scale-110 ring-4 ring-orange-200" : ""}
+                    ${isCurrent ? "scale-110 ring-4" : ""}
                   `}
+                  style={isCurrent ? { ringColor: "var(--primary)" } : {}}
                 >
                   {isActive && step.number < currentStep ? (
-                    <svg
-                      className="w-5 h-5 text-white"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
+                    <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
                       <path
                         fillRule="evenodd"
                         d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
@@ -70,7 +73,7 @@ export default function ProgressBar({
 
               <span
                 className={`text-sm mt-2 font-semibold hidden sm:block transition-colors duration-300 ${
-                  isActive ? "text-[var(--primary-color)]" : "text-black"
+                  isActive ? getTextClass("primary") : "text-black"
                 }`}
               >
                 {step.label}
@@ -86,10 +89,8 @@ export default function ProgressBar({
         <div className="overflow-hidden h-3 rounded-full bg-gray-200 shadow-inner">
           {/* Animated progress */}
           <div
-            className="relative h-full rounded-full transition-all duration-1000 ease-out"
-            style={{ width: `${progressPercentage}%`,
-  background: "linear-gradient(to right, var(--primary-color), var(--secondary-color))"
-}}
+            className={`relative h-full rounded-full ${getGradientClass()} transition-all duration-1000 ease-out`}
+            style={{ width: `${progressPercentage}%` }}
           >
             {/* Shimmer overlay */}
             <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/30 to-transparent animate-pulse" />

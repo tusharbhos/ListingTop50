@@ -6,8 +6,10 @@ import Step2Intent from "./components/Step2Intent";
 import Step4Filters from "./components/Step3Filters";
 import Step5Contact from "./components/Step4Contact";
 import ProgressBar from "./components/ProgressBar";
+import { useThemeStyles } from "./hooks/useThemeStyles";
 
 export default function Home() {
+  const { getHeadingClass, getBgClass, getTextClass } = useThemeStyles();
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
     searchLocation: "",
@@ -31,7 +33,7 @@ export default function Home() {
   };
 
   const nextStep = () => {
-    setCurrentStep((prev) => Math.min(prev + 1, 4)); // Changed to 4 total steps
+    setCurrentStep((prev) => Math.min(prev + 1, 4));
   };
 
   const prevStep = () => {
@@ -94,7 +96,7 @@ export default function Home() {
           <ProgressBar currentStep={currentStep} totalSteps={4} />
 
           {/* Step Content */}
-          <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl p-6 md:p-8">
+          <div className={`${getBgClass("light")} backdrop-blur-sm rounded-2xl shadow-xl p-6 md:p-8`}>
             {renderStep()}
           </div>
         </div>
