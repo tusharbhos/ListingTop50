@@ -3,17 +3,22 @@
 import { useState } from "react";
 import axios from "axios";
 import LoadingSpinner from "./LoadingSpinner";
+import { Theme } from "../config/theme";
 
 interface Step5ContactProps {
   formData: any;
   updateFormData: (step: number, data: any) => void;
   prevStep: () => void;
+    theme: Theme;
+
 }
 
 export default function Step5Contact({
   formData,
   updateFormData,
   prevStep,
+    theme,
+
 }: Step5ContactProps) {
   const [contact, setContact] = useState(
     formData.contact || {
@@ -97,7 +102,7 @@ export default function Step5Contact({
             </p>
           </div>
           <p className="text-sm text-gray-500 mt-4">
-            Thank you for choosing Top50 Properties
+            Thank you for choosing {theme.name}
           </p>
         </div>
       </div>

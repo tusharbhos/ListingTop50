@@ -79,6 +79,7 @@ export default function Home() {
             formData={formData}
             updateFormData={updateFormData}
             prevStep={prevStep}
+            theme={theme}
           />
         );
       default:
@@ -90,7 +91,7 @@ export default function Home() {
     <main className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <div
         className="absolute inset-0 bg-cover bg-center blur-sm scale-105"
-        style={{ backgroundImage: "url('/cityscape.jpg')" }}
+        style={{ backgroundImage: theme.backgroundImage ? `url(${theme.backgroundImage})` : "none" }}
       ></div>
 
       <div className="relative container mx-auto px-4 py-8">

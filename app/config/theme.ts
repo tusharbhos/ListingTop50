@@ -5,6 +5,7 @@ export interface Theme {
   description1?: string;
   description2?: string;
   paragraph?: string;
+  backgroundImage?: string;
   primary: string;      // Main orange color
   secondary: string;    // Secondary color
   text: string;         // Default text color
@@ -23,6 +24,7 @@ export const themes: Record<string, Theme> = {
     description1: "luxury real estate",
     description2: "tailored to your unique needs",
     paragraph: "Discover the finest luxury properties tailored to your unique needs.",
+    backgroundImage: "/1.jpg",
     primary: "#f97316",      // orange-500
     secondary: "#ea580c",     // orange-600
     text: "#000000",         // black
@@ -40,6 +42,7 @@ export const themes: Record<string, Theme> = {
     description1: "exclusive real estate",
     description2: "curated for the discerning buyer",
     paragraph: "Explore exclusive real estate curated for the discerning buyer.",
+    backgroundImage: "/2.jpg",
     primary: "#2563eb",      // blue-600
     secondary: "#1d4ed8",     // blue-700
     text: "#000000",
@@ -57,6 +60,7 @@ export const themes: Record<string, Theme> = {
     description1: "signature real estate",
     description2: "crafted for the elite",
     paragraph: "Discover signature real estate crafted for the elite.",
+    backgroundImage: "/3.jpg",
     primary: "#7c3aed",      // purple-600
     secondary: "#6d28d9",     // purple-700
     text: "#000000",
@@ -74,6 +78,7 @@ export const themes: Record<string, Theme> = {
     description1: "innovative real estate",
     description2: "designed for the modern buyer",
     paragraph: "Explore innovative real estate designed for the modern buyer.",
+    backgroundImage: "/4.jpg",
     primary: "#059669",      // emerald-600
     secondary: "#047857",     // emerald-700
     text: "#000000",
@@ -91,6 +96,7 @@ export const themes: Record<string, Theme> = {
     description1: "premium real estate",
     description2: "perfected for the discerning buyer",
     paragraph: "Discover premium real estate perfected for the discerning buyer.",
+    backgroundImage: "/5.jpg",
     primary: "#dc2626",      // red-600
     secondary: "#b91c1c",     // red-700
     text: "#000000",
@@ -108,6 +114,7 @@ export const themes: Record<string, Theme> = {
     description1: "pearl real estate",
     description2: "shining for the modern buyer",
     paragraph: "Discover pearl real estate shining for the modern buyer.",
+    backgroundImage: "/6.jpg",
     primary: "#b45309",      // amber-700
     secondary: "#92400e",     // amber-800
     text: "#000000",
@@ -125,6 +132,7 @@ export const themes: Record<string, Theme> = {
     description1: "coastal real estate",
     description2: "breezy and beautiful for you",
     paragraph: "Explore coastal real estate that's breezy and beautiful for you.",
+    backgroundImage: "/7.jpg",
     primary: "#0284c7",      // sky-600
     secondary: "#0369a1",     // sky-700
     text: "#000000",
@@ -142,6 +150,7 @@ export const themes: Record<string, Theme> = {
     description1: "heritage real estate",
     description2: "timeless elegance for you",
     paragraph: "Discover heritage real estate with timeless elegance for you.",
+    backgroundImage: "/8.jpg",
     primary: "#b91c1c",      // red-700
     secondary: "#991b1b",     // red-800
     text: "#000000",
@@ -159,6 +168,7 @@ export const themes: Record<string, Theme> = {
     description1: "modern real estate", 
     description2: "sleek and stylish for you",
     paragraph: "Explore modern real estate that's sleek and stylish for you.",
+    backgroundImage: "/9.jpg",
     primary: "#ca8a04",      // yellow-600
     secondary: "#a16207",     // yellow-700
     text: "#000000",
@@ -176,6 +186,7 @@ export const themes: Record<string, Theme> = {
     description1: "royal real estate",
     description2: "regal and refined for you",
     paragraph: "Discover royal real estate that's regal and refined for you.",
+    backgroundImage: "/10.jpg",
     primary: "#c2410c",      // orange-700
     secondary: "#9a3412",     // orange-800
     text: "#000000",
