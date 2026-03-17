@@ -29,8 +29,8 @@ export const themes: Record<string, Theme> = {
     focus: "#f97316",        // orange-500
   },
   
-  "mumbai.realestate.com": {
-    name: "Mumbai Prime Properties",
+  "listing-top50.vercel.app": {
+    name: "tushar Prime Properties",
     primary: "#2563eb",      // blue-600
     secondary: "#1d4ed8",     // blue-700
     text: "#000000",
