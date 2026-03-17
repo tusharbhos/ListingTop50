@@ -3,7 +3,6 @@
 import { useState } from "react";
 import axios from "axios";
 import LoadingSpinner from "./LoadingSpinner";
-import { useThemeStyles } from "../hooks/useThemeStyles";
 
 interface Step5ContactProps {
   formData: any;
@@ -16,8 +15,6 @@ export default function Step5Contact({
   updateFormData,
   prevStep,
 }: Step5ContactProps) {
-  const { getHeadingClass, getButtonClass, getTextClass, getFocusClass } = useThemeStyles();
-
   const [contact, setContact] = useState(
     formData.contact || {
       name: "",
@@ -58,8 +55,6 @@ export default function Step5Contact({
         contact,
       };
 
-      console.log("Submitting data:", JSON.stringify(submissionData, null, 2));
-
       const response = await axios.post("/api/submit-property-search", submissionData);
 
       if (response.data.success) {
@@ -79,16 +74,24 @@ export default function Step5Contact({
       <div className="text-center py-12">
         <LoadingSpinner />
         <div className="mt-6 space-y-2">
-          <p className="text-xl font-semibold text-gray-800">We are finding the best match for you</p>
-          <p className={`text-lg ${getTextClass("primary")} animate-pulse`}>
+          <p className="text-xl font-semibold" style={{ color: 'var(--text)' }}>
+            We are finding the best match for you
+          </p>
+          <p className="text-lg animate-pulse" style={{ color: 'var(--primary)' }}>
             Our team will connect on WhatsApp within 1 hour
           </p>
 
-          <div className="mt-6 p-4 bg-green-50 rounded-lg">
-            <p className="text-green-800 font-medium">✓ Submission Successful!</p>
-            <p className="text-sm text-green-600 mt-1">We've received your requirements</p>
+          <div className="mt-6 p-4 rounded-lg" style={{ backgroundColor: 'var(--bg-light)' }}>
+            <p className="font-medium" style={{ color: 'var(--success)' }}>
+              ✓ Submission Successful!
+            </p>
+            <p className="text-sm mt-1" style={{ color: 'var(--text-muted)' }}>
+              We've received your requirements
+            </p>
           </div>
-          <p className="text-sm text-gray-500 mt-4">Thank you for choosing Top50 Properties</p>
+          <p className="text-sm mt-4" style={{ color: 'var(--text-muted)' }}>
+            Thank you for choosing Top50 Properties
+          </p>
         </div>
       </div>
     );
@@ -96,14 +99,14 @@ export default function Step5Contact({
 
   return (
     <div>
-      <h2 className={`${getHeadingClass("h2")} text-gray-800 mb-6`}>
-        Where to contact you<span className={getTextClass("primary")}>?</span>
+      <h2 className="text-2xl font-semibold mb-6" style={{ color: 'var(--text)' }}>
+        Where to contact you<span style={{ color: 'var(--primary)' }}>?</span>
       </h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-sm font-medium text-black mb-2">
-            Full Name <span className="text-red-500">*</span>
+          <label className="block text-sm font-medium mb-2" style={{ color: 'var(--text)' }}>
+            Full Name <span style={{ color: 'var(--error)' }}>*</span>
           </label>
           <input
             type="text"
@@ -112,14 +115,19 @@ export default function Step5Contact({
             onChange={handleChange}
             required
             minLength={2}
-            className={`w-full px-4 py-3 text-black border border-gray-300 rounded-lg focus:outline-none ${getFocusClass()}`}
+            className="w-full px-4 py-3 border rounded-lg focus:outline-none"
+            style={{
+              color: 'var(--text)',
+              borderColor: 'var(--border)',
+              backgroundColor: 'var(--bg-white)'
+            }}
             placeholder="Enter your full name"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-black mb-2">
-            WhatsApp Number <span className="text-red-500">*</span>
+          <label className="block text-sm font-medium mb-2" style={{ color: 'var(--text)' }}>
+            WhatsApp Number <span style={{ color: 'var(--error)' }}>*</span>
           </label>
           <input
             type="tel"
@@ -129,14 +137,19 @@ export default function Step5Contact({
             required
             pattern="[0-9]{10}"
             maxLength={10}
-            className={`w-full px-4 py-3 border text-black border-gray-300 rounded-lg focus:outline-none ${getFocusClass()}`}
+            className="w-full px-4 py-3 border rounded-lg focus:outline-none"
+            style={{
+              color: 'var(--text)',
+              borderColor: 'var(--border)',
+              backgroundColor: 'var(--bg-white)'
+            }}
             placeholder="10-digit mobile number"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-black mb-2">
-            Email Address <span className="text-red-500">*</span>
+          <label className="block text-sm font-medium mb-2" style={{ color: 'var(--text)' }}>
+            Email Address <span style={{ color: 'var(--error)' }}>*</span>
           </label>
           <input
             type="email"
@@ -144,14 +157,19 @@ export default function Step5Contact({
             value={contact.email}
             onChange={handleChange}
             required
-            className={`w-full px-4 py-3 text-black border border-gray-300 rounded-lg focus:outline-none ${getFocusClass()}`}
+            className="w-full px-4 py-3 border rounded-lg focus:outline-none"
+            style={{
+              color: 'var(--text)',
+              borderColor: 'var(--border)',
+              backgroundColor: 'var(--bg-white)'
+            }}
             placeholder="Enter your email"
           />
         </div>
 
         {error && (
-          <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
-            <p className="text-red-600 text-sm">{error}</p>
+          <div className="p-3 rounded-lg" style={{ backgroundColor: 'var(--bg-light)', borderColor: 'var(--error)' }}>
+            <p className="text-sm" style={{ color: 'var(--error)' }}>{error}</p>
           </div>
         )}
 
@@ -159,16 +177,24 @@ export default function Step5Contact({
           <button
             type="button"
             onClick={prevStep}
-            className={`px-6 py-2 border border-black text-black rounded-lg hover:bg-gray-50 transition`}
+            className="px-6 py-2 border rounded-lg hover:bg-gray-50 transition"
+            style={{
+              color: 'var(--text)',
+              borderColor: 'var(--border)',
+              backgroundColor: 'var(--bg-white)'
+            }}
           >
             Back
           </button>
           <button
             type="submit"
             disabled={loading}
-            className={`px-6 py-2 ${getButtonClass(
-              "primary"
-            )} rounded-lg transition disabled:opacity-50 flex items-center gap-2`}
+            className="px-6 py-2 text-white rounded-lg transition disabled:opacity-50 flex items-center gap-2"
+            style={{
+              backgroundColor: 'var(--primary)',
+            }}
+            onMouseEnter={(e) => !loading && (e.currentTarget.style.backgroundColor = 'var(--primary-dark)')}
+            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'var(--primary)'}
           >
             {loading ? (
               <>

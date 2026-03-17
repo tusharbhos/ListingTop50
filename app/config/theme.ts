@@ -2,304 +2,361 @@
 
 export interface Theme {
   name: string;
+  // Primary Colors
   primary: string;
+  primaryLight: string;
+  primaryDark: string;
+  primaryGradient: string;
+  
+  // Secondary Colors  
   secondary: string;
+  secondaryLight: string;
+  secondaryDark: string;
+  secondaryGradient: string;
+  
+  // Text Colors
   text: string;
   textLight: string;
+  textDark: string;
+  textMuted: string;
+  
+  // Background Colors
   bg: string;
   bgLight: string;
+  bgDark: string;
+  bgWhite: string;
+  
+  // Border Colors
   border: string;
   borderLight: string;
-  gradient: {
-    from: string;
-    to: string;
+  borderDark: string;
+  
+  // Status Colors
+  success: string;
+  warning: string;
+  error: string;
+  info: string;
+  
+  // UI Elements
+  shadow: string;
+  shadowLg: string;
+  ring: string;
+  overlay: string;
+  
+  // Component Specific
+  progressBar: {
+    bg: string;
+    fill: string;
+    glow: string;
   };
-  hover: {
+  
+  // Button Styles
+  button: {
     primary: string;
+    primaryHover: string;
     secondary: string;
+    secondaryHover: string;
+    disabled: string;
   };
-  focus: string;
-  heading: {
+  
+  // Input Styles
+  input: {
+    border: string;
+    focus: string;
+    placeholder: string;
+  };
+  
+  // Card Styles
+  card: {
+    bg: string;
+    border: string;
+    shadow: string;
+  };
+  
+  // Headings
+  headings: {
     h1: string;
     h2: string;
     h3: string;
+    h4: string;
+    h5: string;
+    h6: string;
+    subtitle: string;
   };
 }
 
+// Default Theme
+const defaultTheme: Theme = {
+  name: "Top50 Properties",
+  
+  // Primary Colors
+  primary: "#f97316",
+  primaryLight: "#fb923c",
+  primaryDark: "#ea580c",
+  primaryGradient: "linear-gradient(to right, #f97316, #fb923c, #ea580c)",
+  
+  // Secondary Colors
+  secondary: "#6b7280",
+  secondaryLight: "#9ca3af",
+  secondaryDark: "#4b5563",
+  secondaryGradient: "linear-gradient(to right, #6b7280, #9ca3af, #4b5563)",
+  
+  // Text Colors
+  text: "#000000",
+  textLight: "#4b5563",
+  textDark: "#111827",
+  textMuted: "#6b7280",
+  
+  // Background Colors
+  bg: "#f3f4f6",
+  bgLight: "#f9fafb",
+  bgDark: "#e5e7eb",
+  bgWhite: "#ffffff",
+  
+  // Border Colors
+  border: "#e5e7eb",
+  borderLight: "#f3f4f6",
+  borderDark: "#d1d5db",
+  
+  // Status Colors
+  success: "#10b981",
+  warning: "#f59e0b",
+  error: "#ef4444",
+  info: "#3b82f6",
+  
+  // UI Elements
+  shadow: "0 1px 3px 0 rgb(0 0 0 / 0.1)",
+  shadowLg: "0 10px 15px -3px rgb(0 0 0 / 0.1)",
+  ring: "0 0 0 2px #f97316",
+  overlay: "rgba(0, 0, 0, 0.5)",
+  
+  // Progress Bar
+  progressBar: {
+    bg: "#e5e7eb",
+    fill: "linear-gradient(to right, #f97316, #fb923c, #ea580c)",
+    glow: "#fed7aa",
+  },
+  
+  // Buttons
+  button: {
+    primary: "bg-[#f97316] text-white hover:bg-[#ea580c]",
+    primaryHover: "bg-[#ea580c]",
+    secondary: "bg-[#6b7280] text-white hover:bg-[#4b5563]",
+    secondaryHover: "bg-[#4b5563]",
+    disabled: "opacity-50 cursor-not-allowed",
+  },
+  
+  // Input
+  input: {
+    border: "border-[#e5e7eb]",
+    focus: "ring-2 ring-[#f97316]",
+    placeholder: "placeholder-[#9ca3af]",
+  },
+  
+  // Card
+  card: {
+    bg: "bg-white",
+    border: "border border-[#e5e7eb]",
+    shadow: "shadow-lg",
+  },
+  
+  // Headings
+  headings: {
+    h1: "text-3xl md:text-4xl font-semibold text-[#000000]",
+    h2: "text-2xl md:text-4xl font-semibold text-[#000000]",
+    h3: "text-xl font-semibold text-[#000000]",
+    h4: "text-lg font-semibold text-[#000000]",
+    h5: "text-base font-semibold text-[#000000]",
+    h6: "text-sm font-semibold text-[#000000]",
+    subtitle: "text-[#6b7280] text-sm",
+  },
+};
+
+// Domain-specific themes
 export const themes: Record<string, Theme> = {
-  default: {
-    name: "Default",
-    primary: "#f97316", // orange-500
-    secondary: "#ea580c", // orange-600
-    text: "#000000",
-    textLight: "#4b5563", // gray-600
-    bg: "#ffffff",
-    bgLight: "#f9fafb", // gray-50
-    border: "#e5e7eb", // gray-200
-    borderLight: "#f3f4f6", // gray-100
-    gradient: {
-      from: "#f97316",
-      to: "#ea580c",
-    },
-    hover: {
-      primary: "#ea580c", // orange-600
-      secondary: "#c2410c", // orange-700
-    },
-    focus: "#f97316",
-    heading: {
-      h1: "text-4xl md:text-5xl font-bold",
-      h2: "text-3xl md:text-4xl font-semibold",
-      h3: "text-2xl md:text-3xl font-semibold",
+  default: defaultTheme,
+  
+  // Domain 1: Luxury Properties
+  "listing-top50.vercel.app": {
+    ...defaultTheme,
+    name: "Luxury Top50 Properties",
+    primary: "#b91c1c",
+    primaryLight: "#dc2626",
+    primaryDark: "#991b1b",
+    primaryGradient: "linear-gradient(to right, #b91c1c, #dc2626, #991b1b)",
+    
+    headings: {
+      ...defaultTheme.headings,
+      h1: "text-3xl md:text-4xl font-serif font-bold text-[#b91c1c]",
+      h2: "text-2xl md:text-4xl font-serif font-bold text-[#b91c1c]",
     },
   },
- "listing-top50.vercel.app": {
-    name: "listing-top50",
-    primary: "#2563eb", // blue-600
-    secondary: "#1d4ed8", // blue-700
-    text: "#000000",
-    textLight: "#4b5563",
-    bg: "#ffffff",
-    bgLight: "#f9fafb",
-    border: "#e5e7eb",
-    borderLight: "#f3f4f6",
-    gradient: {
-      from: "#2563eb",
-      to: "#1d4ed8",
-    },
-    hover: {
-      primary: "#1d4ed8",
-      secondary: "#1e40af",
-    },
-    focus: "#2563eb",
-    heading: {
-      h1: "text-4xl md:text-5xl font-bold",
-      h2: "text-3xl md:text-4xl font-semibold",
-      h3: "text-2xl md:text-3xl font-semibold",
+  
+  // Domain 2: Commercial Properties
+  "commercial.top50properties.com": {
+    ...defaultTheme,
+    name: "Commercial Top50 Properties",
+    primary: "#2563eb",
+    primaryLight: "#3b82f6",
+    primaryDark: "#1d4ed8",
+    primaryGradient: "linear-gradient(to right, #2563eb, #3b82f6, #1d4ed8)",
+    
+    headings: {
+      ...defaultTheme.headings,
+      h1: "text-3xl md:text-4xl font-bold text-[#2563eb]",
+      h2: "text-2xl md:text-4xl font-bold text-[#2563eb]",
     },
   },
-  domain2: {
-    name: "Domain 2",
-    primary: "#059669", // emerald-600
-    secondary: "#047857", // emerald-700
-    text: "#000000",
-    textLight: "#4b5563",
-    bg: "#ffffff",
-    bgLight: "#f9fafb",
-    border: "#e5e7eb",
-    borderLight: "#f3f4f6",
-    gradient: {
-      from: "#059669",
-      to: "#047857",
-    },
-    hover: {
-      primary: "#047857",
-      secondary: "#065f46",
-    },
-    focus: "#059669",
-    heading: {
-      h1: "text-4xl md:text-5xl font-bold",
-      h2: "text-3xl md:text-4xl font-semibold",
-      h3: "text-2xl md:text-3xl font-semibold",
+  
+  // Domain 3: Investment Properties
+  "investment.top50properties.com": {
+    ...defaultTheme,
+    name: "Investment Top50 Properties",
+    primary: "#059669",
+    primaryLight: "#10b981",
+    primaryDark: "#047857",
+    primaryGradient: "linear-gradient(to right, #059669, #10b981, #047857)",
+    
+    headings: {
+      ...defaultTheme.headings,
+      h1: "text-3xl md:text-4xl font-bold text-[#059669]",
+      h2: "text-2xl md:text-4xl font-bold text-[#059669]",
     },
   },
-  domain3: {
-    name: "Domain 3",
-    primary: "#9333ea", // purple-600
-    secondary: "#7e22ce", // purple-700
-    text: "#000000",
-    textLight: "#4b5563",
-    bg: "#ffffff",
-    bgLight: "#f9fafb",
-    border: "#e5e7eb",
-    borderLight: "#f3f4f6",
-    gradient: {
-      from: "#9333ea",
-      to: "#7e22ce",
-    },
-    hover: {
-      primary: "#7e22ce",
-      secondary: "#6b21a8",
-    },
-    focus: "#9333ea",
-    heading: {
-      h1: "text-4xl md:text-5xl font-bold",
-      h2: "text-3xl md:text-4xl font-semibold",
-      h3: "text-2xl md:text-3xl font-semibold",
+  
+  // Domain 4: Plots & Land
+  "plots.top50properties.com": {
+    ...defaultTheme,
+    name: "Plots & Land Top50 Properties",
+    primary: "#b45309",
+    primaryLight: "#d97706",
+    primaryDark: "#92400e",
+    primaryGradient: "linear-gradient(to right, #b45309, #d97706, #92400e)",
+    
+    headings: {
+      ...defaultTheme.headings,
+      h1: "text-3xl md:text-4xl font-bold text-[#b45309]",
+      h2: "text-2xl md:text-4xl font-bold text-[#b45309]",
     },
   },
-  domain4: {
-    name: "Domain 4",
-    primary: "#dc2626", // red-600
-    secondary: "#b91c1c", // red-700
-    text: "#000000",
-    textLight: "#4b5563",
-    bg: "#ffffff",
-    bgLight: "#f9fafb",
-    border: "#e5e7eb",
-    borderLight: "#f3f4f6",
-    gradient: {
-      from: "#dc2626",
-      to: "#b91c1c",
-    },
-    hover: {
-      primary: "#b91c1c",
-      secondary: "#991b1b",
-    },
-    focus: "#dc2626",
-    heading: {
-      h1: "text-4xl md:text-5xl font-bold",
-      h2: "text-3xl md:text-4xl font-semibold",
-      h3: "text-2xl md:text-3xl font-semibold",
+  
+  // Domain 5: Tax-Smart Properties
+  "tax.top50properties.com": {
+    ...defaultTheme,
+    name: "Tax-Smart Top50 Properties",
+    primary: "#7e22ce",
+    primaryLight: "#9333ea",
+    primaryDark: "#6b21a5",
+    primaryGradient: "linear-gradient(to right, #7e22ce, #9333ea, #6b21a5)",
+    
+    headings: {
+      ...defaultTheme.headings,
+      h1: "text-3xl md:text-4xl font-bold text-[#7e22ce]",
+      h2: "text-2xl md:text-4xl font-bold text-[#7e22ce]",
     },
   },
-  domain5: {
-    name: "Domain 5",
-    primary: "#0891b2", // cyan-600
-    secondary: "#0e7490", // cyan-700
-    text: "#000000",
-    textLight: "#4b5563",
-    bg: "#ffffff",
-    bgLight: "#f9fafb",
-    border: "#e5e7eb",
-    borderLight: "#f3f4f6",
-    gradient: {
-      from: "#0891b2",
-      to: "#0e7490",
-    },
-    hover: {
-      primary: "#0e7490",
-      secondary: "#155e75",
-    },
-    focus: "#0891b2",
-    heading: {
-      h1: "text-4xl md:text-5xl font-bold",
-      h2: "text-3xl md:text-4xl font-semibold",
-      h3: "text-2xl md:text-3xl font-semibold",
+  
+  // Domain 6: Special Deals
+  "special.top50properties.com": {
+    ...defaultTheme,
+    name: "Special Deals Top50 Properties",
+    primary: "#dc2626",
+    primaryLight: "#ef4444",
+    primaryDark: "#b91c1c",
+    primaryGradient: "linear-gradient(to right, #dc2626, #ef4444, #b91c1c)",
+    
+    headings: {
+      ...defaultTheme.headings,
+      h1: "text-3xl md:text-4xl font-bold text-[#dc2626]",
+      h2: "text-2xl md:text-4xl font-bold text-[#dc2626]",
     },
   },
-  domain6: {
-    name: "Domain 6",
-    primary: "#b45309", // amber-700
-    secondary: "#92400e", // amber-800
-    text: "#000000",
-    textLight: "#4b5563",
-    bg: "#ffffff",
-    bgLight: "#f9fafb",
-    border: "#e5e7eb",
-    borderLight: "#f3f4f6",
-    gradient: {
-      from: "#b45309",
-      to: "#92400e",
-    },
-    hover: {
-      primary: "#92400e",
-      secondary: "#78350f",
-    },
-    focus: "#b45309",
-    heading: {
-      h1: "text-4xl md:text-5xl font-bold",
-      h2: "text-3xl md:text-4xl font-semibold",
-      h3: "text-2xl md:text-3xl font-semibold",
+  
+  // Domain 7: Future-Ready Homes
+  "future.top50properties.com": {
+    ...defaultTheme,
+    name: "Future-Ready Top50 Properties",
+    primary: "#0d9488",
+    primaryLight: "#14b8a6",
+    primaryDark: "#0f766e",
+    primaryGradient: "linear-gradient(to right, #0d9488, #14b8a6, #0f766e)",
+    
+    headings: {
+      ...defaultTheme.headings,
+      h1: "text-3xl md:text-4xl font-bold text-[#0d9488]",
+      h2: "text-2xl md:text-4xl font-bold text-[#0d9488]",
     },
   },
-  domain7: {
-    name: "Domain 7",
-    primary: "#7c3aed", // violet-600
-    secondary: "#6d28d9", // violet-700
-    text: "#000000",
-    textLight: "#4b5563",
-    bg: "#ffffff",
-    bgLight: "#f9fafb",
-    border: "#e5e7eb",
-    borderLight: "#f3f4f6",
-    gradient: {
-      from: "#7c3aed",
-      to: "#6d28d9",
-    },
-    hover: {
-      primary: "#6d28d9",
-      secondary: "#5b21b6",
-    },
-    focus: "#7c3aed",
-    heading: {
-      h1: "text-4xl md:text-5xl font-bold",
-      h2: "text-3xl md:text-4xl font-semibold",
-      h3: "text-2xl md:text-3xl font-semibold",
+  
+  // Domain 8: NRI Properties
+  "nri.top50properties.com": {
+    ...defaultTheme,
+    name: "NRI Top50 Properties",
+    primary: "#c2410c",
+    primaryLight: "#ea580c",
+    primaryDark: "#9a3412",
+    primaryGradient: "linear-gradient(to right, #c2410c, #ea580c, #9a3412)",
+    
+    headings: {
+      ...defaultTheme.headings,
+      h1: "text-3xl md:text-4xl font-bold text-[#c2410c]",
+      h2: "text-2xl md:text-4xl font-bold text-[#c2410c]",
     },
   },
-  domain8: {
-    name: "Domain 8",
-    primary: "#0d9488", // teal-600
-    secondary: "#0f766e", // teal-700
-    text: "#000000",
-    textLight: "#4b5563",
-    bg: "#ffffff",
-    bgLight: "#f9fafb",
-    border: "#e5e7eb",
-    borderLight: "#f3f4f6",
-    gradient: {
-      from: "#0d9488",
-      to: "#0f766e",
-    },
-    hover: {
-      primary: "#0f766e",
-      secondary: "#115e59",
-    },
-    focus: "#0d9488",
-    heading: {
-      h1: "text-4xl md:text-5xl font-bold",
-      h2: "text-3xl md:text-4xl font-semibold",
-      h3: "text-2xl md:text-3xl font-semibold",
+  
+  // Domain 9: First-Time Buyers
+  "firsttime.top50properties.com": {
+    ...defaultTheme,
+    name: "First-Time Buyers Top50 Properties",
+    primary: "#0284c7",
+    primaryLight: "#0ea5e9",
+    primaryDark: "#0369a1",
+    primaryGradient: "linear-gradient(to right, #0284c7, #0ea5e9, #0369a1)",
+    
+    headings: {
+      ...defaultTheme.headings,
+      h1: "text-3xl md:text-4xl font-bold text-[#0284c7]",
+      h2: "text-2xl md:text-4xl font-bold text-[#0284c7]",
     },
   },
-  domain9: {
-    name: "Domain 9",
-    primary: "#d97706", // yellow-600
-    secondary: "#b45309", // yellow-700
-    text: "#000000",
-    textLight: "#4b5563",
-    bg: "#ffffff",
-    bgLight: "#f9fafb",
-    border: "#e5e7eb",
-    borderLight: "#f3f4f6",
-    gradient: {
-      from: "#d97706",
-      to: "#b45309",
-    },
-    hover: {
-      primary: "#b45309",
-      secondary: "#92400e",
-    },
-    focus: "#d97706",
-    heading: {
-      h1: "text-4xl md:text-5xl font-bold",
-      h2: "text-3xl md:text-4xl font-semibold",
-      h3: "text-2xl md:text-3xl font-semibold",
-    },
-  },
-  domain10: {
-    name: "Domain 10",
-    primary: "#4f46e5", // indigo-600
-    secondary: "#4338ca", // indigo-700
-    text: "#000000",
-    textLight: "#4b5563",
-    bg: "#ffffff",
-    bgLight: "#f9fafb",
-    border: "#e5e7eb",
-    borderLight: "#f3f4f6",
-    gradient: {
-      from: "#4f46e5",
-      to: "#4338ca",
-    },
-    hover: {
-      primary: "#4338ca",
-      secondary: "#3730a3",
-    },
-    focus: "#4f46e5",
-    heading: {
-      h1: "text-4xl md:text-5xl font-bold",
-      h2: "text-3xl md:text-4xl font-semibold",
-      h3: "text-2xl md:text-3xl font-semibold",
+  
+  // Domain 10: Senior Living
+  "senior.top50properties.com": {
+    ...defaultTheme,
+    name: "Senior Living Top50 Properties",
+    primary: "#4f46e5",
+    primaryLight: "#6366f1",
+    primaryDark: "#4338ca",
+    primaryGradient: "linear-gradient(to right, #4f46e5, #6366f1, #4338ca)",
+    
+    headings: {
+      ...defaultTheme.headings,
+      h1: "text-3xl md:text-4xl font-bold text-[#4f46e5]",
+      h2: "text-2xl md:text-4xl font-bold text-[#4f46e5]",
     },
   },
 };
+
+// Helper function to get theme CSS variables
+export const getThemeCSS = (theme: Theme) => ({
+  '--primary': theme.primary,
+  '--primary-light': theme.primaryLight,
+  '--primary-dark': theme.primaryDark,
+  '--primary-gradient': theme.primaryGradient,
+  '--secondary': theme.secondary,
+  '--text': theme.text,
+  '--text-light': theme.textLight,
+  '--text-muted': theme.textMuted,
+  '--bg': theme.bg,
+  '--bg-light': theme.bgLight,
+  '--bg-white': theme.bgWhite,
+  '--border': theme.border,
+  '--border-light': theme.borderLight,
+  '--success': theme.success,
+  '--warning': theme.warning,
+  '--error': theme.error,
+  '--shadow': theme.shadow,
+  '--shadow-lg': theme.shadowLg,
+  '--ring': theme.ring,
+  '--overlay': theme.overlay,
+} as React.CSSProperties);

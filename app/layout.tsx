@@ -1,6 +1,5 @@
 import { headers } from "next/headers";
-import { themes } from "./config/theme";
-import { ThemeProvider } from "../app/context/ThemeContext";
+import { themes, getThemeCSS } from "./config/theme";
 import "./globals.css";
 
 export default async function RootLayout({
@@ -10,31 +9,18 @@ export default async function RootLayout({
 }) {
   const host = (await headers()).get("host") || "";
   const domain = host.replace("www.", "");
+
   const theme = themes[domain] || themes["default"];
+  const themeCSS = getThemeCSS(theme);
 
   return (
     <html lang="en">
-      <body
-        style={
-          {
-            "--primary": theme.primary,
-            "--secondary": theme.secondary,
-            "--text": theme.text,
-            "--text-light": theme.textLight,
-            "--bg": theme.bg,
-            "--bg-light": theme.bgLight,
-            "--border": theme.border,
-            "--border-light": theme.borderLight,
-            "--gradient-from": theme.gradient.from,
-            "--gradient-to": theme.gradient.to,
-            "--hover-primary": theme.hover.primary,
-            "--hover-secondary": theme.hover.secondary,
-            "--focus": theme.focus,
-          } as React.CSSProperties
-        }
-      >
+      <head>
         <title>{theme.name}</title>
-        <ThemeProvider theme={theme}>{children}</ThemeProvider>
+        <meta name="theme-color" content={theme.primary} />
+      </head>
+      <body style={themeCSS}>
+        {children}
       </body>
     </html>
   );

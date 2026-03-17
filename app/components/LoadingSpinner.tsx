@@ -2,10 +2,8 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { useThemeStyles } from "../hooks/useThemeStyles";
 
 export default function LoadingSpinner() {
-  const { theme, getTextClass, getBgClass } = useThemeStyles();
   const [rotation, setRotation] = useState(0);
 
   useEffect(() => {
@@ -19,51 +17,51 @@ export default function LoadingSpinner() {
     <div className="flex justify-center items-center min-h-[200px]">
       <div className="relative w-40 h-40">
         {/* Layer 5 - Outermost ring with gradient */}
-        <div
+        <div 
           className="absolute inset-0 rounded-full animate-pulse"
-          style={{
-            background: `linear-gradient(to right, ${theme.primary}33, ${theme.primary}, ${theme.secondary})`,
-          }}
+          style={{ background: 'var(--primary-gradient)' }}
         ></div>
-
+        
         {/* Layer 4 - Spinning ring with dashes */}
-        <div
+        <div 
           className="absolute inset-1 rounded-full border-4 border-dashed"
-          style={{
-            animation: "spin 8s linear infinite",
-            borderColor: `${theme.primary} transparent ${theme.primary} transparent`,
+          style={{ 
+            animation: 'spin 8s linear infinite',
+            borderColor: 'var(--primary) transparent var(--primary) transparent'
           }}
         ></div>
-
+        
         {/* Layer 3 - Spinning ring with dots */}
-        <div
+        <div 
           className="absolute inset-2 rounded-full"
           style={{
-            background: `conic-gradient(from 0deg, ${theme.primary}33, ${theme.primary}, ${theme.secondary}, ${theme.primary}33)`,
-            animation: "spin 6s linear infinite reverse",
+            background: 'conic-gradient(from 0deg, var(--primary-light), var(--primary), var(--primary-dark), var(--primary-light))',
+            animation: 'spin 6s linear infinite reverse'
           }}
         ></div>
-
+        
         {/* Layer 2 - Inner spinning ring */}
-        <div
+        <div 
           className="absolute inset-3 rounded-full border-4"
-          style={{
-            borderColor: `${theme.primary} ${theme.primary}66 ${theme.primary}33 ${theme.secondary}`,
-            animation: "spin 4s linear infinite",
+          style={{ 
+            animation: 'spin 4s linear infinite',
+            borderColor: 'var(--primary-dark) var(--primary-light) var(--primary) var(--primary)'
           }}
         ></div>
-
+        
         {/* Layer 1 - Inner glow ring */}
-        <div
+        <div 
           className="absolute inset-4 rounded-full animate-pulse"
-          style={{
-            background: `linear-gradient(to bottom right, ${theme.primary}33, ${theme.primary}66)`,
-          }}
+          style={{ background: 'linear-gradient(to bottom right, var(--primary-light), var(--primary))' }}
         ></div>
-
+        
         {/* Center Image */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="relative w-20 h-20 bg-white rounded-full shadow-xl flex items-center justify-center animate-bounce-slow">
+          <div 
+            className="relative w-20 h-20 rounded-full shadow-xl flex items-center justify-center animate-bounce-slow"
+            style={{ backgroundColor: 'var(--bg-white)' }}
+          >
+            {/* Real Estate Image */}
             <Image
               src="https://img.icons8.com/fluency/96/null/real-estate.png"
               alt="Real Estate"
@@ -72,11 +70,11 @@ export default function LoadingSpinner() {
               className="object-contain"
               priority
             />
-
+            
             {/* Glowing effect around image */}
-            <div
+            <div 
               className="absolute inset-0 rounded-full animate-ping"
-              style={{ backgroundColor: theme.primary, opacity: 0.2 }}
+              style={{ backgroundColor: 'var(--primary)', opacity: 0.2 }}
             ></div>
           </div>
         </div>
@@ -87,13 +85,13 @@ export default function LoadingSpinner() {
             key={index}
             className="absolute w-2 h-2 rounded-full"
             style={{
-              left: "50%",
-              top: "50%",
+              left: '50%',
+              top: '50%',
               transform: `rotate(${angle + rotation}deg) translateX(60px)`,
-              backgroundColor: theme.primary,
               opacity: 0.6,
-              animation: "pulse 1.5s ease-in-out infinite",
+              animation: 'pulse 1.5s ease-in-out infinite',
               animationDelay: `${index * 0.2}s`,
+              backgroundColor: 'var(--primary)'
             }}
           ></div>
         ))}
@@ -101,17 +99,12 @@ export default function LoadingSpinner() {
 
       <style jsx>{`
         @keyframes spin {
-          from {
-            transform: rotate(0deg);
-          }
-          to {
-            transform: rotate(360deg);
-          }
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
         }
-
+        
         @keyframes bounce-slow {
-          0%,
-          100% {
+          0%, 100% {
             transform: translateY(-5%);
             animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
           }
@@ -120,7 +113,7 @@ export default function LoadingSpinner() {
             animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
           }
         }
-
+        
         .animate-bounce-slow {
           animation: bounce-slow 2s infinite;
         }

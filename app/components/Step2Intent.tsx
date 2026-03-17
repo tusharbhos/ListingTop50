@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import IntentPopup from "./IntentPopup";
-import { useThemeStyles } from "../hooks/useThemeStyles";
 
 interface Step2IntentProps {
   formData: any;
@@ -17,11 +16,7 @@ const intents = [
   { id: "luxury", name: "Luxury & Signature Homes", icon: "🏛️" },
   { id: "plots", name: "Plots & Land Opportunity", icon: "📍" },
   { id: "tax", name: "Tax-Smart Property Options", icon: "💰" },
-  {
-    id: "commercial",
-    name: "Commercial Spaces & Industrial Assets",
-    icon: "🏢",
-  },
+  { id: "commercial", name: "Commercial Spaces & Industrial Assets", icon: "🏢" },
   { id: "special", name: "Special Opportunity Deals", icon: "🎯" },
   { id: "future", name: "Future-Ready & Purpose Homes", icon: "🌿" },
 ];
@@ -32,7 +27,6 @@ export default function Step2Intent({
   nextStep,
   prevStep,
 }: Step2IntentProps) {
-  const { getHeadingClass, getButtonClass, getTextClass, getBgClass } = useThemeStyles();
   const [selectedPopup, setSelectedPopup] = useState<string | null>(null);
 
   const handleIntentClick = (intentId: string) => {
@@ -46,7 +40,7 @@ export default function Step2Intent({
     };
 
     const selectedIntents = Object.keys(updatedSubOptions).filter(
-      (intent) => updatedSubOptions[intent]?.length > 0
+      (intent) => updatedSubOptions[intent]?.length > 0,
     );
 
     updateFormData(2, {
@@ -66,9 +60,9 @@ export default function Step2Intent({
   return (
     <div className="max-w-6xl mx-auto px-4">
       {/* TITLE */}
-      <h2 className={`text-center ${getHeadingClass("h2")} text-gray-800 mb-8`}>
+      <h2 className="text-center text-2xl md:text-4xl font-semibold mb-8" style={{ color: 'var(--text)' }}>
         What best describes what you're looking for
-        <span className={getTextClass("primary")}>?</span>
+        <span style={{ color: 'var(--primary)' }}>?</span>
       </h2>
 
       {/* GRID */}
@@ -77,21 +71,31 @@ export default function Step2Intent({
           const selectedCount = formData.selectedSubOptions?.[intent.id]?.length || 0;
 
           return (
-            <div key={intent.id} className="cursor-pointer" onClick={() => handleIntentClick(intent.id)}>
+            <div
+              key={intent.id}
+              className="cursor-pointer"
+              onClick={() => handleIntentClick(intent.id)}
+            >
               <div className="flex">
                 <div className="text-5xl ml-auto">{intent.icon}</div>
               </div>
 
               {/* BUTTON */}
               <div
-                className={`${getBgClass(
-                  "primary"
-                )} hover:bg-[--hover-primary] text-white px-4 py-3 rounded-lg font-semibold transition relative`}
+                className="text-white px-4 py-3 rounded-lg font-semibold transition relative"
+                style={{
+                  backgroundColor: 'var(--primary)',
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--primary-dark)'}
+                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'var(--primary)'}
               >
                 {intent.name}
 
                 {selectedCount > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-black text-white text-xs px-2 py-1 rounded-full">
+                  <span 
+                    className="absolute -top-2 -right-2 text-white text-xs px-2 py-1 rounded-full"
+                    style={{ backgroundColor: 'var(--text)' }}
+                  >
                     {selectedCount}
                   </span>
                 )}
@@ -105,7 +109,12 @@ export default function Step2Intent({
       <div className="flex justify-between mt-8 gap-2">
         <button
           onClick={prevStep}
-          className={`border ${getButtonClass("secondary")} px-6 py-2 rounded-lg text-black cursor-pointer`}
+          className="border px-6 py-2 rounded-lg hover:bg-gray-100 cursor-pointer"
+          style={{
+            color: 'var(--text)',
+            borderColor: 'var(--border)',
+            backgroundColor: 'var(--bg-white)'
+          }}
         >
           Back
         </button>
@@ -113,9 +122,12 @@ export default function Step2Intent({
         <button
           onClick={handleContinue}
           disabled={!formData.selectedIntents?.length}
-          className={`${getBgClass(
-            "primary"
-          )} hover:bg-[--hover-primary] text-white px-6 py-2 rounded-lg disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer`}
+          className="text-white px-6 py-2 rounded-lg disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+          style={{
+            backgroundColor: 'var(--primary)',
+          }}
+          onMouseEnter={(e) => !formData.selectedIntents?.length && (e.currentTarget.style.backgroundColor = 'var(--primary-dark)')}
+          onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'var(--primary)'}
         >
           Continue
         </button>
