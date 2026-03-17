@@ -6,8 +6,12 @@ import Step2Intent from "./components/Step2Intent";
 import Step4Filters from "./components/Step3Filters";
 import Step5Contact from "./components/Step4Contact";
 import ProgressBar from "./components/ProgressBar";
+import { getTheme } from "./config/theme";
 
 export default function Home() {
+  const theme = getTheme(
+  typeof window !== "undefined" ? window.location.hostname : "default"
+);
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
     searchLocation: "",
@@ -46,6 +50,7 @@ export default function Home() {
             formData={formData}
             updateFormData={updateFormData}
             nextStep={nextStep}
+            theme={theme}
           />
         );
       case 2:
@@ -64,6 +69,8 @@ export default function Home() {
             updateFormData={updateFormData}
             nextStep={nextStep}
             prevStep={prevStep}
+            theme={theme}
+
           />
         );
       case 4:

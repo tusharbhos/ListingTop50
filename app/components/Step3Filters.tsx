@@ -1,12 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import { Theme } from "../config/theme";
 
 interface Step4FiltersProps {
   formData: any;
   updateFormData: (step: number, data: any) => void;
   nextStep: () => void;
   prevStep: () => void;
+  theme: Theme;
 }
 
 const budgetRanges = [
@@ -37,6 +39,7 @@ export default function Step4Filters({
   updateFormData,
   nextStep,
   prevStep,
+  theme,
 }: Step4FiltersProps) {
   const [filters, setFilters] = useState(
     formData.filters || {
@@ -58,16 +61,32 @@ export default function Step4Filters({
 
   const isComplete = Object.values(filters).every((value) => value !== "");
 
+  const buttonBaseStyle = {
+    padding: "0.5rem",
+    fontSize: "0.875rem",
+    cursor: "pointer",
+    border: "1px solid",
+    borderRadius: "0.5rem",
+    transition: "all 0.2s",
+  };
+
   return (
     <div>
-      <h2 className="text-2xl font-semibold mb-6" style={{ color: "var(--heading)" }}>
+      <h2
+        className="text-2xl font-semibold mb-6"
+        style={{ color: theme.heading }}
+      >
         What best describes what you're looking for
-        <span style={{ color: "var(--primary)" }}>?</span>
+        <span style={{ color: theme.primary }}>?</span>
       </h2>
 
       <div className="space-y-6">
+        {/* Budget Range */}
         <div>
-          <label className="block text-lg font-bold text-black mb-2">
+          <label
+            className="block text-lg font-bold mb-2"
+            style={{ color: theme.text }}
+          >
             Budget Range :-
           </label>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
@@ -75,15 +94,27 @@ export default function Step4Filters({
               <button
                 key={range}
                 onClick={() => handleChange("budgetRange", range)}
-                className={`p-2 text-sm cursor-pointer border text-black rounded-lg transition ${
-                  filters.budgetRange === range
-                    ? "bg-orange-50"
-                    : "bg-gray-50 hover:border-orange-300"
-                }`}
                 style={{
-                  borderColor: filters.budgetRange === range ? "var(--primary)" : "",
-                  color: filters.budgetRange === range ? "var(--primary)" : "",
-                  backgroundColor: filters.budgetRange === range ? "var(--bg)" : ""
+                  ...buttonBaseStyle,
+                  borderColor:
+                    filters.budgetRange === range
+                      ? theme.primary
+                      : theme.border,
+                  color:
+                    filters.budgetRange === range ? theme.primary : theme.text,
+                  backgroundColor:
+                    filters.budgetRange === range ? theme.bg : "#f9fafb",
+                  borderWidth: filters.budgetRange === range ? "2px" : "1px",
+                }}
+                onMouseEnter={(e) => {
+                  if (filters.budgetRange !== range) {
+                    e.currentTarget.style.borderColor = theme.hover;
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (filters.budgetRange !== range) {
+                    e.currentTarget.style.borderColor = theme.border;
+                  }
                 }}
               >
                 {range}
@@ -92,8 +123,12 @@ export default function Step4Filters({
           </div>
         </div>
 
+        {/* Possession Timeline */}
         <div>
-          <label className="block text-lg font-bold text-black mb-2">
+          <label
+            className="block text-lg font-bold mb-2"
+            style={{ color: theme.text }}
+          >
             Possession Timeline :-
           </label>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
@@ -101,15 +136,32 @@ export default function Step4Filters({
               <button
                 key={timeline}
                 onClick={() => handleChange("possessionTimeline", timeline)}
-                className={`p-2 text-sm cursor-pointer border text-black rounded-lg transition ${
-                  filters.possessionTimeline === timeline
-                    ? "bg-orange-50"
-                    : "bg-gray-50 hover:border-orange-300"
-                }`}
                 style={{
-                  borderColor: filters.possessionTimeline === timeline ? "var(--primary)" : "",
-                  color: filters.possessionTimeline === timeline ? "var(--primary)" : "",
-                  backgroundColor: filters.possessionTimeline === timeline ? "var(--bg)" : ""
+                  ...buttonBaseStyle,
+                  borderColor:
+                    filters.possessionTimeline === timeline
+                      ? theme.primary
+                      : theme.border,
+                  color:
+                    filters.possessionTimeline === timeline
+                      ? theme.primary
+                      : theme.text,
+                  backgroundColor:
+                    filters.possessionTimeline === timeline
+                      ? theme.bg
+                      : "#f9fafb",
+                  borderWidth:
+                    filters.possessionTimeline === timeline ? "2px" : "1px",
+                }}
+                onMouseEnter={(e) => {
+                  if (filters.possessionTimeline !== timeline) {
+                    e.currentTarget.style.borderColor = theme.hover;
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (filters.possessionTimeline !== timeline) {
+                    e.currentTarget.style.borderColor = theme.border;
+                  }
                 }}
               >
                 {timeline}
@@ -118,8 +170,12 @@ export default function Step4Filters({
           </div>
         </div>
 
+        {/* Decision Timeline */}
         <div>
-          <label className="block text-lg font-bold text-black mb-2">
+          <label
+            className="block text-lg font-bold mb-2"
+            style={{ color: theme.text }}
+          >
             Decision Timeline :-
           </label>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
@@ -127,15 +183,32 @@ export default function Step4Filters({
               <button
                 key={timeline}
                 onClick={() => handleChange("decisionTimeline", timeline)}
-                className={`p-2 text-sm cursor-pointer border text-black rounded-lg transition ${
-                  filters.decisionTimeline === timeline
-                    ? "bg-orange-50"
-                    : "bg-gray-50 hover:border-orange-300"
-                }`}
                 style={{
-                  borderColor: filters.decisionTimeline === timeline ? "var(--primary)" : "",
-                  color: filters.decisionTimeline === timeline ? "var(--primary)" : "",
-                  backgroundColor: filters.decisionTimeline === timeline ? "var(--bg)" : ""
+                  ...buttonBaseStyle,
+                  borderColor:
+                    filters.decisionTimeline === timeline
+                      ? theme.primary
+                      : theme.border,
+                  color:
+                    filters.decisionTimeline === timeline
+                      ? theme.primary
+                      : theme.text,
+                  backgroundColor:
+                    filters.decisionTimeline === timeline
+                      ? theme.bg
+                      : "#f9fafb",
+                  borderWidth:
+                    filters.decisionTimeline === timeline ? "2px" : "1px",
+                }}
+                onMouseEnter={(e) => {
+                  if (filters.decisionTimeline !== timeline) {
+                    e.currentTarget.style.borderColor = theme.hover;
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (filters.decisionTimeline !== timeline) {
+                    e.currentTarget.style.borderColor = theme.border;
+                  }
                 }}
               >
                 {timeline}
@@ -144,8 +217,12 @@ export default function Step4Filters({
           </div>
         </div>
 
+        {/* Purpose */}
         <div>
-          <label className="block text-lg font-bold text-black mb-2">
+          <label
+            className="block text-lg font-bold mb-2"
+            style={{ color: theme.text }}
+          >
             Purpose :-
           </label>
           <div className="flex gap-2">
@@ -153,15 +230,26 @@ export default function Step4Filters({
               <button
                 key={purpose}
                 onClick={() => handleChange("purpose", purpose)}
-                className={`flex-1 p-2 cursor-pointer border text-black rounded-lg transition ${
-                  filters.purpose === purpose
-                    ? "bg-orange-50"
-                    : "bg-gray-50 hover:border-orange-300"
-                }`}
                 style={{
-                  borderColor: filters.purpose === purpose ? "var(--primary)" : "",
-                  color: filters.purpose === purpose ? "var(--primary)" : "",
-                  backgroundColor: filters.purpose === purpose ? "var(--bg)" : ""
+                  ...buttonBaseStyle,
+                  flex: 1,
+                  borderColor:
+                    filters.purpose === purpose ? theme.primary : theme.border,
+                  color:
+                    filters.purpose === purpose ? theme.primary : theme.text,
+                  backgroundColor:
+                    filters.purpose === purpose ? theme.bg : "#f9fafb",
+                  borderWidth: filters.purpose === purpose ? "2px" : "1px",
+                }}
+                onMouseEnter={(e) => {
+                  if (filters.purpose !== purpose) {
+                    e.currentTarget.style.borderColor = theme.hover;
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (filters.purpose !== purpose) {
+                    e.currentTarget.style.borderColor = theme.border;
+                  }
                 }}
               >
                 {purpose}
@@ -174,15 +262,47 @@ export default function Step4Filters({
       <div className="flex space-x-3 justify-between mt-8">
         <button
           onClick={prevStep}
-          className="px-6 py-2 border cursor-pointer text-black border-black rounded-lg hover:bg-gray-50 transition"
+          style={{
+            padding: "0.5rem 1.5rem",
+            border: `1px solid ${theme.border}`,
+            borderRadius: "0.5rem",
+            cursor: "pointer",
+            color: theme.text,
+            backgroundColor: "transparent",
+            transition: "all 0.2s",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.backgroundColor = "#f3f4f6";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = "transparent";
+          }}
         >
           Back
         </button>
         <button
           onClick={handleSubmit}
           disabled={!isComplete}
-          className="px-6 py-2 cursor-pointer text-white rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-90"
-          style={{ backgroundColor: "var(--primary)" }}
+          style={{
+            padding: "0.5rem 1.5rem",
+            borderRadius: "0.5rem",
+            cursor: isComplete ? "pointer" : "not-allowed",
+            color: "white",
+            backgroundColor: theme.primary,
+            opacity: !isComplete ? 0.5 : 1,
+            border: "none",
+            transition: "all 0.2s",
+          }}
+          onMouseEnter={(e) => {
+            if (isComplete) {
+              e.currentTarget.style.backgroundColor = theme.hover;
+            }
+          }}
+          onMouseLeave={(e) => {
+            if (isComplete) {
+              e.currentTarget.style.backgroundColor = theme.primary;
+            }
+          }}
         >
           View Filtered Properties
         </button>
