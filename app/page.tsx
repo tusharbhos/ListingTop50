@@ -81,26 +81,16 @@ export default function Home() {
 
   return (
     <main className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image */}
       <div
         className="absolute inset-0 bg-cover bg-center blur-sm scale-105"
         style={{ backgroundImage: "url('/cityscape.jpg')" }}
       ></div>
 
-      {/* Content */}
       <div className="relative container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
-          {/* Progress Bar */}
           <ProgressBar currentStep={currentStep} totalSteps={4} />
 
-          {/* Step Content */}
-          <div 
-            className="backdrop-blur-sm rounded-2xl shadow-xl p-6 md:p-8"
-            style={{ 
-              backgroundColor: 'var(--bg-white)',
-              opacity: 0.95
-            }}
-          >
+          <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl p-6 md:p-8">
             {renderStep()}
           </div>
         </div>

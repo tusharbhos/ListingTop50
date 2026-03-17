@@ -16,7 +16,11 @@ const intents = [
   { id: "luxury", name: "Luxury & Signature Homes", icon: "🏛️" },
   { id: "plots", name: "Plots & Land Opportunity", icon: "📍" },
   { id: "tax", name: "Tax-Smart Property Options", icon: "💰" },
-  { id: "commercial", name: "Commercial Spaces & Industrial Assets", icon: "🏢" },
+  {
+    id: "commercial",
+    name: "Commercial Spaces & Industrial Assets",
+    icon: "🏢",
+  },
   { id: "special", name: "Special Opportunity Deals", icon: "🎯" },
   { id: "future", name: "Future-Ready & Purpose Homes", icon: "🌿" },
 ];
@@ -59,16 +63,15 @@ export default function Step2Intent({
 
   return (
     <div className="max-w-6xl mx-auto px-4">
-      {/* TITLE */}
-      <h2 className="text-center text-2xl  font-semibold mb-8" style={{ color: 'var(--text)' }}>
+      <h2 className="text-center text-2xl md:text-4xl font-semibold mb-8" style={{ color: "var(--heading)" }}>
         What best describes what you're looking for
-        <span style={{ color: 'var(--primary)' }}>?</span>
+        <span style={{ color: "var(--primary)" }}>?</span>
       </h2>
 
-      {/* GRID */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
         {intents.map((intent) => {
-          const selectedCount = formData.selectedSubOptions?.[intent.id]?.length || 0;
+          const selectedCount =
+            formData.selectedSubOptions?.[intent.id]?.length || 0;
 
           return (
             <div
@@ -80,22 +83,14 @@ export default function Step2Intent({
                 <div className="text-5xl ml-auto">{intent.icon}</div>
               </div>
 
-              {/* BUTTON */}
               <div
-                className="text-white px-4 py-3 rounded-lg font-semibold transition relative"
-                style={{
-                  backgroundColor: 'var(--primary)',
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--primary-dark)'}
-                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'var(--primary)'}
+                className="text-white px-4 py-3 rounded-lg font-semibold transition hover:opacity-90 relative"
+                style={{ backgroundColor: "var(--primary)" }}
               >
                 {intent.name}
 
                 {selectedCount > 0 && (
-                  <span 
-                    className="absolute -top-2 -right-2 text-white text-xs px-2 py-1 rounded-full"
-                    style={{ backgroundColor: 'var(--text)' }}
-                  >
+                  <span className="absolute -top-2 -right-2 bg-black text-white text-xs px-2 py-1 rounded-full">
                     {selectedCount}
                   </span>
                 )}
@@ -105,16 +100,10 @@ export default function Step2Intent({
         })}
       </div>
 
-      {/* BUTTONS */}
       <div className="flex justify-between mt-8 gap-2">
         <button
           onClick={prevStep}
-          className="border px-6 py-2 rounded-lg hover:bg-gray-100 cursor-pointer"
-          style={{
-            color: 'var(--text)',
-            borderColor: 'var(--border)',
-            backgroundColor: 'var(--bg-white)'
-          }}
+          className="border px-6 py-2 rounded-lg hover:bg-gray-100 text-black cursor-pointer"
         >
           Back
         </button>
@@ -122,18 +111,13 @@ export default function Step2Intent({
         <button
           onClick={handleContinue}
           disabled={!formData.selectedIntents?.length}
-          className="text-white px-6 py-2 rounded-lg disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
-          style={{
-            backgroundColor: 'var(--primary)',
-          }}
-          onMouseEnter={(e) => !formData.selectedIntents?.length && (e.currentTarget.style.backgroundColor = 'var(--primary-dark)')}
-          onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'var(--primary)'}
+          className="text-white px-6 py-2 rounded-lg disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer hover:opacity-90"
+          style={{ backgroundColor: "var(--primary)" }}
         >
           Continue
         </button>
       </div>
 
-      {/* POPUP */}
       {selectedPopup && (
         <IntentPopup
           intentId={selectedPopup}

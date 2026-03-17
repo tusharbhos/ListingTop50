@@ -16,13 +16,13 @@ export default function LoadingSpinner() {
   return (
     <div className="flex justify-center items-center min-h-[200px]">
       <div className="relative w-40 h-40">
-        {/* Layer 5 - Outermost ring with gradient */}
         <div 
           className="absolute inset-0 rounded-full animate-pulse"
-          style={{ background: 'var(--primary-gradient)' }}
+          style={{
+            background: `linear-gradient(to right, var(--gradientFrom), var(--primary), var(--gradientTo))`
+          }}
         ></div>
         
-        {/* Layer 4 - Spinning ring with dashes */}
         <div 
           className="absolute inset-1 rounded-full border-4 border-dashed"
           style={{ 
@@ -31,37 +31,31 @@ export default function LoadingSpinner() {
           }}
         ></div>
         
-        {/* Layer 3 - Spinning ring with dots */}
         <div 
           className="absolute inset-2 rounded-full"
           style={{
-            background: 'conic-gradient(from 0deg, var(--primary-light), var(--primary), var(--primary-dark), var(--primary-light))',
+            background: `conic-gradient(from 0deg, var(--gradientFrom), var(--primary), var(--gradientTo), var(--gradientFrom))`,
             animation: 'spin 6s linear infinite reverse'
           }}
         ></div>
         
-        {/* Layer 2 - Inner spinning ring */}
         <div 
           className="absolute inset-3 rounded-full border-4"
           style={{ 
             animation: 'spin 4s linear infinite',
-            borderColor: 'var(--primary-dark) var(--primary-light) var(--primary) var(--primary)'
+            borderColor: 'var(--secondary) var(--primary) var(--gradientFrom) var(--gradientTo)'
           }}
         ></div>
         
-        {/* Layer 1 - Inner glow ring */}
         <div 
           className="absolute inset-4 rounded-full animate-pulse"
-          style={{ background: 'linear-gradient(to bottom right, var(--primary-light), var(--primary))' }}
+          style={{
+            background: `linear-gradient(to bottom right, var(--gradientFrom), var(--primary))`
+          }}
         ></div>
         
-        {/* Center Image */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <div 
-            className="relative w-20 h-20 rounded-full shadow-xl flex items-center justify-center animate-bounce-slow"
-            style={{ backgroundColor: 'var(--bg-white)' }}
-          >
-            {/* Real Estate Image */}
+          <div className="relative w-20 h-20 bg-white rounded-full shadow-xl flex items-center justify-center animate-bounce-slow">
             <Image
               src="https://img.icons8.com/fluency/96/null/real-estate.png"
               alt="Real Estate"
@@ -71,15 +65,13 @@ export default function LoadingSpinner() {
               priority
             />
             
-            {/* Glowing effect around image */}
             <div 
-              className="absolute inset-0 rounded-full animate-ping"
-              style={{ backgroundColor: 'var(--primary)', opacity: 0.2 }}
+              className="absolute inset-0 rounded-full opacity-20 animate-ping"
+              style={{ backgroundColor: "var(--primary)" }}
             ></div>
           </div>
         </div>
 
-        {/* Orbiting particles around the image */}
         {[0, 60, 120, 180, 240, 300].map((angle, index) => (
           <div
             key={index}
@@ -91,7 +83,7 @@ export default function LoadingSpinner() {
               opacity: 0.6,
               animation: 'pulse 1.5s ease-in-out infinite',
               animationDelay: `${index * 0.2}s`,
-              backgroundColor: 'var(--primary)'
+              backgroundColor: "var(--primary)"
             }}
           ></div>
         ))}
@@ -99,8 +91,12 @@ export default function LoadingSpinner() {
 
       <style jsx>{`
         @keyframes spin {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
+          from {
+            transform: rotate(0deg);
+          }
+          to {
+            transform: rotate(360deg);
+          }
         }
         
         @keyframes bounce-slow {

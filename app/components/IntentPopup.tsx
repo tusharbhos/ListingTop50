@@ -123,31 +123,24 @@ export default function IntentPopup({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex flex-col"
-      style={{ height: "80dvh", backgroundColor: 'var(--overlay)' }}
+      className="fixed inset-0 bg-opacity-50 z-50 flex flex-col"
+      style={{ height: "80dvh" }}
     >
       <div
-        className="rounded-2xl shadow-2xl w-full max-w-2xl mx-auto flex flex-col overflow-hidden"
-        style={{
-          maxHeight: "95%",
-          backgroundColor: 'var(--bg-white)'
-        }}
+        className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl mx-auto flex flex-col overflow-hidden"
+        style={{ maxHeight: "95%" }}
       >
-        {/* HEADER */}
-        <div className="p-5 border-b" style={{ borderColor: 'var(--border)' }}>
+        <div className="p-5 border-b border-gray-200">
           <div className="flex justify-between items-start gap-2">
             <div>
-              <h2 className="text-md font-semibold flex items-center gap-2 flex-wrap" style={{ color: 'var(--text)' }}>
-                <span className="text-xl">{intentIcon}{intentName}</span>
+              <h2 className="text-md font-semibold text-gray-800 flex items-center gap-2 flex-wrap">
+                <span className="text-xl" style={{ color: "var(--primary)" }}>{intentIcon}{intentName}</span>
               </h2>
-              <p className="text-sm mt-1" style={{ color: 'var(--text-muted)' }}>Select your preferences</p>
+              <p className="text-gray-500 text-sm mt-1">Select your preferences</p>
             </div>
             <button
               onClick={handleClose}
-              className="transition"
-              style={{ color: 'var(--text-muted)' }}
-              onMouseEnter={(e) => e.currentTarget.style.color = 'var(--text)'}
-              onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-muted)'}
+              className="text-gray-400 hover:text-gray-600 transition"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -156,30 +149,34 @@ export default function IntentPopup({
           </div>
         </div>
 
-        {/* OPTIONS LIST */}
         <div className="flex-1 overflow-y-auto p-5 min-h-0">
           <div className="space-y-3">
             {options.map((option) => (
               <label
                 key={option}
-                className={`flex items-center space-x-3 p-3 border rounded-lg cursor-pointer transition`}
+                className={`flex items-center space-x-3 p-3 border rounded-lg cursor-pointer transition ${
+                  selected[option]
+                    ? "border-orange-500 bg-orange-50"
+                    : "border-gray-200 hover:bg-gray-50"
+                }`}
                 style={{
-                  borderColor: selected[option] ? 'var(--primary)' : 'var(--border)',
-                  backgroundColor: selected[option] ? 'var(--bg-light)' : 'var(--bg-white)',
+                  borderColor: selected[option] ? "var(--primary)" : "",
+                  backgroundColor: selected[option] ? "var(--bg)" : ""
                 }}
               >
                 <input
                   type="checkbox"
                   checked={selected[option] || false}
                   onChange={() => handleCheckboxChange(option)}
-                  className="w-5 h-5 rounded focus:ring-2"
-                  style={{
-                    color: 'var(--primary)',
-                  }}
+                  className="w-5 h-5 rounded focus:ring-orange-500"
+                  style={{ 
+                    color: "var(--primary)",
+                    "--tw-ring-color": "var(--primary)" 
+                  } as React.CSSProperties}
                 />
-                <span className="flex-1 text-sm leading-snug" style={{ color: 'var(--text)' }}>{option}</span>
+                <span className="text-black flex-1 text-sm leading-snug">{option}</span>
                 {selected[option] && (
-                  <svg className="w-5 h-5" style={{ color: 'var(--primary)' }} fill="currentColor" viewBox="0 0 20 20">
+                  <svg className="w-5 h-5" style={{ color: "var(--primary)" }} fill="currentColor" viewBox="0 0 20 20">
                     <path
                       fillRule="evenodd"
                       d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
@@ -192,28 +189,18 @@ export default function IntentPopup({
           </div>
         </div>
 
-        {/* FOOTER */}
-        <div className="p-5 border-t" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--bg-light)' }}>
+        <div className="p-5 border-t border-gray-200 bg-gray-50">
           <div className="flex items-center justify-between">
             <button
               onClick={handleClose}
-              className="px-5 py-2.5 border rounded-lg hover:bg-gray-100 transition cursor-pointer text-sm font-medium"
-              style={{
-                color: 'var(--text)',
-                borderColor: 'var(--border)',
-                backgroundColor: 'var(--bg-white)'
-              }}
+              className="px-5 py-2.5 border border-black rounded-lg hover:bg-gray-100 transition text-black cursor-pointer text-sm font-medium"
             >
               Cancel
             </button>
             <button
               onClick={handleSave}
-              className="px-5 py-2.5 text-white rounded-lg hover:bg-opacity-90 transition cursor-pointer text-sm font-medium"
-              style={{
-                backgroundColor: 'var(--primary)',
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--primary-dark)'}
-              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'var(--primary)'}
+              className="px-5 py-2.5 text-white rounded-lg hover:opacity-90 transition cursor-pointer text-sm font-medium"
+              style={{ backgroundColor: "var(--primary)" }}
             >
               Save Selection
             </button>

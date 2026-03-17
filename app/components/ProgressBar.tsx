@@ -15,13 +15,14 @@ export default function ProgressBar({ currentStep, totalSteps }: ProgressBarProp
 
   return (
     <div className="mb-8">
-      {/* Step Indicators */}
       <div className="flex justify-between mb-2 relative">
-        {/* Background line */}
         <div className="absolute top-4 left-0 w-full h-0.5 bg-gray-200 -z-10" />
         <div 
-          className="absolute top-4 left-0 h-0.5 progress-bar-fill transition-all duration-1000 ease-out -z-10"
-          style={{ width: `${progressPercentage}%` }}
+          className="absolute top-4 left-0 h-0.5 transition-all duration-1000 ease-out -z-10"
+          style={{ 
+            width: `${progressPercentage}%`,
+            background: `linear-gradient(to right, var(--gradientFrom), var(--gradientTo))`
+          }}
         />
         
         {steps.map((step) => {
@@ -29,13 +30,15 @@ export default function ProgressBar({ currentStep, totalSteps }: ProgressBarProp
           const isCurrent = step.number === currentStep;
           
           return (
-            <div key={step.number} className="flex flex-col items-center">
-              {/* Circle with glow for current */}
+            <div
+              key={step.number}
+              className="flex flex-col items-center"
+            >
               <div className="relative">
                 {isCurrent && (
                   <div 
                     className="absolute -inset-2 rounded-full animate-ping opacity-30"
-                    style={{ backgroundColor: 'var(--primary)' }}
+                    style={{ backgroundColor: "var(--primary)" }}
                   />
                 )}
                 <div
@@ -44,14 +47,16 @@ export default function ProgressBar({ currentStep, totalSteps }: ProgressBarProp
                     transition-all duration-500
                     ${isActive 
                       ? 'text-white shadow-lg' 
-                      : 'bg-white text-black'
+                      : 'border-gray-300 bg-white text-black'
                     }
                     ${isCurrent ? 'scale-110 ring-4' : ''}
                   `}
                   style={{
-                    backgroundColor: isActive ? 'var(--primary)' : 'white',
-                    borderColor: isActive ? 'var(--primary-dark)' : 'var(--border)'
-                  }}
+                    backgroundColor: isActive ? "var(--primary)" : "",
+                    borderColor: isActive ? "var(--secondary)" : "",
+                    "--tw-ring-color": "var(--primary)",
+                    opacity: isActive ? 1 : 0.5
+                  } as React.CSSProperties}
                 >
                   {isActive && step.number < currentStep ? (
                     <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -64,8 +69,8 @@ export default function ProgressBar({ currentStep, totalSteps }: ProgressBarProp
               </div>
               
               <span 
-                className="text-sm mt-2 font-semibold hidden sm:block transition-colors duration-300"
-                style={{ color: isActive ? 'var(--primary)' : 'var(--text)' }}
+                className={`text-sm mt-2 font-semibold hidden sm:block transition-colors duration-300`}
+                style={{ color: isActive ? "var(--primary)" : "var(--text)" }}
               >
                 {step.label}
               </span>
@@ -74,17 +79,16 @@ export default function ProgressBar({ currentStep, totalSteps }: ProgressBarProp
         })}
       </div>
 
-      {/* Premium Progress Bar */}
       <div className="relative pt-4">
-        {/* Background with inset shadow */}
-        <div className="overflow-hidden h-3 rounded-full" style={{ backgroundColor: 'var(--progress-bg, #e5e7eb)' }}>
-          {/* Animated progress */}
+        <div className="overflow-hidden h-3 rounded-full bg-gray-200 shadow-inner">
           <div
-            className="relative h-full rounded-full progress-bar-fill transition-all duration-1000 ease-out"
-            style={{ width: `${progressPercentage}%` }}
+            className="relative h-full rounded-full transition-all duration-1000 ease-out"
+            style={{ 
+              width: `${progressPercentage}%`,
+              background: `linear-gradient(to right, var(--gradientFrom), var(--primary), var(--gradientTo))`
+            }}
           >
-            {/* Shimmer overlay */}
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-pulse" />
+            <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/30 to-transparent animate-pulse" />
           </div>
         </div>
       </div>

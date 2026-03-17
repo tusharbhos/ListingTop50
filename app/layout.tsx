@@ -1,5 +1,5 @@
 import { headers } from "next/headers";
-import { themes, getThemeCSS } from "./config/theme";
+import { themes } from "./config/theme";
 import "./globals.css";
 
 export default async function RootLayout({
@@ -11,15 +11,26 @@ export default async function RootLayout({
   const domain = host.replace("www.", "");
 
   const theme = themes[domain] || themes["default"];
-  const themeCSS = getThemeCSS(theme);
 
   return (
     <html lang="en">
-      <head>
+      <body
+        style={
+          {
+            "--primary": theme.primary,
+            "--secondary": theme.secondary,
+            "--text": theme.text,
+            "--bg": theme.bg,
+            "--border": theme.border,
+            "--heading": theme.heading,
+            "--gradientFrom": theme.gradientFrom,
+            "--gradientTo": theme.gradientTo,
+            "--hover": theme.hover,
+            "--focus": theme.focus,
+          } as React.CSSProperties
+        }
+      >
         <title>{theme.name}</title>
-        <meta name="theme-color" content={theme.primary} />
-      </head>
-      <body style={themeCSS}>
         {children}
       </body>
     </html>
